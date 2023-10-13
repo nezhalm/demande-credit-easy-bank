@@ -1,0 +1,10 @@
+/* Style de la classe "my-link" */
+.my-link {
+    padding: 6px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid #ff7808;
+    font-size: 14px;
+    padding-right: 15px;
+}
