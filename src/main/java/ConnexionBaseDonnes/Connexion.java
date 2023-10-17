@@ -2,15 +2,19 @@ package ConnexionBaseDonnes;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Map;
+import env.env;
 
 public class Connexion {
     private static Connexion instance;
 
     private Connection connection;
 
-    private final String url = "jdbc:postgresql://localhost:5432/EasyBank";
-    private final String user = "postgres";
-    private final String password = "nezha123";
+    private Map<String, String> getEnv = env.vars();
+
+    private final String url = getEnv.get("DB_URL");
+    private final String user = getEnv.get("DB_USERNAME");
+    private final String password = getEnv.get("DB_PASSWORD");
 
     private Connexion() {
         try {
@@ -33,7 +37,6 @@ public class Connexion {
     }
 
     public Connection getConnection() {
-
         return connection;
     }
 
