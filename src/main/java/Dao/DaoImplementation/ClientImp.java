@@ -2,8 +2,12 @@ package Dao.DaoImplementation;
 import ConnexionBaseDonnes.Connexion;
 import Dao.GlobaleDao;
 import Entities.Client;
-import Entities.Employe;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
+import java.util.Optional;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,34 +16,35 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
-import java.util.Optional;
 
 public class ClientImp implements GlobaleDao<Client> {
+    private SessionFactory sessionFactory;
+    public ClientImp() {
+        // Initialise la session factory lors de la création de l'objet ClientDAO
+        Configuration configuration = new Configuration().configure(); // Charge la configuration depuis hibernate.cfg.xml
+        sessionFactory = configuration.buildSessionFactory();
+    }
     private static final Connection connection = Connexion.getInstance().getConnection();
 
     public Optional<Client> ajouterClient(Client client) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+
         try {
-            Connection connexion = Connexion.getInstance().getConnection();
-            String sql = "INSERT INTO client (code, first_name, last_name, birth_date, phone_number, address, creator_employe) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = connexion.prepareStatement(sql);
-            preparedStatement.setString(1, client.getCode());
-            preparedStatement.setString(2, client.getNom());
-            preparedStatement.setString(3, client.getPrenom());
-            preparedStatement.setObject(4, client.getDateNaissance());
-            preparedStatement.setString(5, client.getTelephone());
-            preparedStatement.setString(6, client.getAdresse());
-            preparedStatement.setObject(7, client.getCreator().getMatricule());
-            preparedStatement.executeUpdate();
+            transaction = session.beginTransaction();
+            session.save(client);
+            transaction.commit();
             return Optional.ofNullable(client);
-        } catch (SQLException e) {
-            e.printStackTrace(); // Gérer l'exception ici (par exemple, en journalisant l'erreur)
-            return Optional.empty();
         } catch (Exception e) {
-            e.printStackTrace(); // Gérer d'autres exceptions ici si nécessaire
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
             return Optional.empty();
+        } finally {
+            session.close();
         }
     }
-
 
     @Override
     public Optional<Integer> supprimer(Client client) {
@@ -60,7 +65,6 @@ public class ClientImp implements GlobaleDao<Client> {
         }
     }
 
-
     @Override
     public Optional<Client> chercher(String code) {
         List<Client> clientsOptional = afficheList();
@@ -70,18 +74,14 @@ public class ClientImp implements GlobaleDao<Client> {
                 .findFirst();
     }
 
-
-
     @Override
     public List<Client> afficheList() {
         List<Client> clients = new ArrayList<>();
-
         try {
             Connection connection = Connexion.getInstance().getConnection();
             String query = "SELECT * FROM client";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
                 String code = resultSet.getString("code");
                 String firstName = resultSet.getString("first_name");
@@ -92,42 +92,31 @@ public class ClientImp implements GlobaleDao<Client> {
                 String address = resultSet.getString("address");
                 clients.add(new Client(firstName, lastName, phoneNumber, birthDate, code, address));
             }
-
             return clients;
         } catch (SQLException e) {
-            // Gérer l'exception SQL ici
-            e.printStackTrace(); // Vous pouvez remplacer cela par un logging approprié
-            return null; // Retourner une liste vide ou gérer l'erreur selon vos besoins
+            e.printStackTrace();
+            return null;
         }
     }
 
     @Override
     public Optional<Client> ajouter(Client client) {
-        Connection connexion = Connexion.getInstance().getConnection();
-        String sql = "INSERT INTO client (code, first_name, last_name, birth_date, phone_number, address) VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement preparedStatement = null;
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
 
         try {
-            preparedStatement = connexion.prepareStatement(sql);
-            preparedStatement.setString(1, client.getCode());
-            preparedStatement.setString(2, client.getNom());
-            preparedStatement.setString(3, client.getPrenom());
-            preparedStatement.setObject(4, client.getDateNaissance());
-            preparedStatement.setString(5, client.getTelephone());
-            preparedStatement.setString(6, client.getAdresse());
-            preparedStatement.executeUpdate();
-            return Optional.ofNullable(client);
-        } catch (SQLException e) {
-            e.printStackTrace(); // Vous pouvez également enregistrer l'exception ou effectuer une autre action appropriée.
-            return Optional.empty(); // Indique que l'opération a échoué
-        } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace(); // Vous pouvez également enregistrer l'exception ou effectuer une autre action appropriée.
-                }
+            transaction = session.beginTransaction();
+            session.save(client);
+            transaction.commit();
+            return Optional.of(client);
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
             }
+            e.printStackTrace();
+            return Optional.empty();
+        } finally {
+            session.close();
         }
     }
 
