@@ -19,7 +19,7 @@ import java.util.Optional;
 
 import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
-@WebServlet(urlPatterns = {"/saveClient","/addClient","/list", "/deleteClient", "/savechangesClient", "/updateClient", "/listClients", "/searchClient"})
+@WebServlet(urlPatterns = {"/displayFormDemande","/saveClient","/addClient","/list", "/deleteClient", "/savechangesClient", "/updateClient", "/listClients", "/searchClient"})
 
 public class AllClientsServlet extends HttpServlet {
   ClientService clientService;
@@ -34,6 +34,9 @@ public class AllClientsServlet extends HttpServlet {
         String action = request.getServletPath();
         try {
             switch (action) {
+                case "/displayFormDemande":
+                    displayeFormFemande(request, response);
+                    break;
                 case "/saveClient":
                     addClient(request, response);
                     break;
@@ -68,6 +71,7 @@ public class AllClientsServlet extends HttpServlet {
         request.setAttribute("employes", employeService.AllEmployes());
         request.getRequestDispatcher("/WEB-INF/JSPs/ClientAdministration/AddClient.jsp").forward(request, response);
     }
+
     protected void getClientTOUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String clientCode = request.getParameter("clientCode");
         request.setAttribute("employes", employeService.AllEmployes());
@@ -80,13 +84,14 @@ public class AllClientsServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/JSPs/ClientAdministration/Dashboard.jsp").forward(request, response);
     }
     protected void searchClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String clientName = request.getParameter("name");
-        Client client = clientService.chercher(clientName);
-        if (client != null) {
-            request.setAttribute("client", client);
+        String code = request.getParameter("code");
+        Optional<Client> client = clientService.chercher(code);
+        System.out.println("testssss");
+        if (client.isPresent()) {
+            request.setAttribute("client", client.get());
             request.getRequestDispatcher("/WEB-INF/JSPs/ClientAdministration/GetClient.jsp").forward(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/list?successMessage=Le+client+introuvable.");
+            response.sendRedirect(request.getContextPath() + "/list?errorMessage=Le+client+introuvable.");
         }
     }
 
@@ -163,7 +168,10 @@ public class AllClientsServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/list?errorMessage=error+dans+la+modification+du+client.");
         }
     }
-
+    protected void displayeFormFemande(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("clients", clientService.AllClients());
+        request.getRequestDispatcher("/WEB-INF/JSPs/DemandeAdministration/DemandeForme.jsp").forward(request, response);
+    }
 
         @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

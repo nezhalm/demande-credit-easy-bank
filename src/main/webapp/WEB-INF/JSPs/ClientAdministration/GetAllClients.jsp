@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Attendance Dashboard | By Code Info</title>
-    <link rel="stylesheet"  href="../../../Css/DashboardPage.css" />
+    <link rel="stylesheet"  href="../../../Css/ClientAdministration/DashboardPage.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
 

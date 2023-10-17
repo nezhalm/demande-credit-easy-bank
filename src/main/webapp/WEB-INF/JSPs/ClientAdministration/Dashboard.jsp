@@ -4,8 +4,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Attendance Dashboard | By Code Info</title>
-  <link rel="stylesheet"  href="../../../Css/DashboardPage.css" />
+  <title>Easy Bank</title>
+  <link rel="stylesheet"  href="../../../Css/ClientAdministration/DashboardPage.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
 
@@ -20,11 +20,11 @@
         <img src="../../../Images/admin.png">
         <span class="nav-item">EasyBank</span>
       </a></li>
-      <li><a href="#">
+      <li><a href="/">
         <i class="fas fa-menorah"></i>
         <span class="nav-item">Dashboard</span>
       </a></li>
-      <li><a href="#">
+      <li><a href="/displayFormDemande">
         <i class="fas fa-comment"></i>
         <span class="nav-item">Message</span>
       </a></li>
@@ -106,15 +106,14 @@
 
     <section class="attendance">
       <div class="attendance-list">
-        <div style="display: flex; display: justify-content: space-between;">
+        <div style="display: flex;  justify-content: space-between;">
           <div> <h1>List des clients</h1></div>
         <div style="    margin-top: 1%;
     margin-left: 67%;" class="search">
           <form action="/searchClient" method="get">
-            <input type="hidden" name="action" value="searchClient">
             <input type="text"
-                   placeholder=" Search Courses"
-                   name="name">
+                   placeholder=" entrer le code du client"
+                   name="code">
             <button>
               <i class="fa fa-search"
                  style="font-size: 18px;">
