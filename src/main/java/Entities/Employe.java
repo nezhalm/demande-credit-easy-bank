@@ -1,8 +1,11 @@
 package Entities;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public class Employe extends Personne {
+
     private String matricule;
     private LocalDate dateRecrutement;
     private String email;

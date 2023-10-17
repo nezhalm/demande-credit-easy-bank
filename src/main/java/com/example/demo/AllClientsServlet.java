@@ -130,7 +130,7 @@ public class AllClientsServlet extends HttpServlet {
             Employe employe = employeService.chercher(matricule);
 
             if (employe != null) {
-                newClient.setCreator(employe);
+                //  newClient.setCreator(employe);
 
                 Optional<Client> inserted = clientService.insertClient(newClient);
 
