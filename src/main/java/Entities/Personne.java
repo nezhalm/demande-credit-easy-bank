@@ -1,11 +1,19 @@
 package Entities;
 
-import java.time.LocalDate;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 
+import java.time.LocalDate;
+@MappedSuperclass
 public abstract class Personne {
+    @Column(name = "first_name")
     protected String nom;
+    @Column(name = "last_name")
     protected String prenom;
+
+    @Column(name = "birth_date")
     protected LocalDate dateNaissance;
+    @Column(name = "phone_number")
     protected String telephone;
     public Personne(String nom, String prenom, LocalDate dateNaissance, String telephone) {
         setNom(nom);
