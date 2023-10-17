@@ -29,7 +29,6 @@ public class ClientImp implements GlobaleDao<Client> {
     public Optional<Client> ajouterClient(Client client) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-
         try {
             transaction = session.beginTransaction();
             session.save(client);
@@ -103,7 +102,6 @@ public class ClientImp implements GlobaleDao<Client> {
     public Optional<Client> ajouter(Client client) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-
         try {
             transaction = session.beginTransaction();
             session.save(client);

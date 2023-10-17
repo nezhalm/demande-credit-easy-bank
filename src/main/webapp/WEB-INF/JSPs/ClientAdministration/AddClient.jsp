@@ -7,8 +7,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>Attendance Dashboard | By Code Info</title>
-    <link rel="stylesheet"  href="../../../Css/AddPage.css" />
-    <link rel="stylesheet"  href="../../../Css/DashboardPage.css" />
+    <link rel="stylesheet"  href="../../../Css/ClientAdministration/AddPage.css" />
+    <link rel="stylesheet"  href="../../../Css/ClientAdministration/DashboardPage.css" />
 
     <!-- Font Awesome Cdn Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
