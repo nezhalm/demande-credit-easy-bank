@@ -1,8 +1,8 @@
 
 
 .main2{
+    width: 100%;
     background-image: linear-gradient(to right, rgb(255, 116, 0), rgb(245, 245, 245)), url(https://www.hmablogs.com/wp-content/uploads/2022/06/background-1-scaled.jpg);
-
 }
 .row{
     display: flex;

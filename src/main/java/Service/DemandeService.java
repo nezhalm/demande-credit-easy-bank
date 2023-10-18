@@ -3,11 +3,13 @@ package Service;
 import Dao.AgenceDao;
 import Dao.DaoImplementation.AgenceImp;
 import Dao.DaoImplementation.ClientImp;
+import Dao.DaoImplementation.DemandeImp;
 import Dao.DaoImplementation.EmployeImp;
 import Dao.DemandeDao;
 import Entities.*;
 import Enum.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
@@ -16,11 +18,11 @@ public class DemandeService {
     static final AgenceImp agenceImp = new AgenceImp();
     static final ClientImp clientImp = new ClientImp();
 
-    private final DemandeDao demandeDao;
-    public DemandeService(DemandeDao demandeDao) {
-        this.demandeDao = demandeDao;
-    }
+    private final DemandeImp demandeImp;
+    public DemandeService(DemandeImp demandeImp) {
 
+        this.demandeImp = demandeImp;
+    }
 
 
 
@@ -31,10 +33,15 @@ public class DemandeService {
             double denominateur = 1 - Math.pow(1 + tauxInteretMensuel, -duree);
             double mensualite = credit * (tauxInteretMensuel / denominateur);
             Demande demandevalide = new Demande(employeImp.chercher(codeEmploye).get(), agenceImp.chercher(codeAgence).get(), clientImp.chercher(codeClient).get(), credit, duree, remarque, dateEtHeureCreation, genererCodeUnique(4), StatusDemande.Active, mensualite);
-           Optional<Demande> test = demandeDao.ajouter(demandevalide);
+           Optional<Demande> test = demandeImp.ajouter(demandevalide);
                 result = Optional.of(test).get();
         }
         return result;
+    }
+
+    public List<Demande> AllDemandes() {
+        List<Demande> demandeList = demandeImp.afficheList();
+        return demandeList;
     }
 
 }

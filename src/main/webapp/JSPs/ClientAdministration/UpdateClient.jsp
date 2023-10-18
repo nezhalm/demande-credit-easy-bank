@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>modifier un client</title>
-    <link rel="stylesheet"  href="../../../Css/ClientAdministration/AddPage.css" />
-    <link rel="stylesheet"  href="../../../Css/ClientAdministration/DashboardPage.css" />
+    <link rel="stylesheet"  href="../../Css/ClientAdministration/AddPage.css" />
+    <link rel="stylesheet"  href="../../Css/ClientAdministration/DashboardPage.css" />
 
     <!-- Font Awesome Cdn Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
@@ -16,7 +16,7 @@
     <nav>
         <ul>
             <li><a href="#" class="logo">
-                <img src="../../../Images/admin.png">
+                <img src="../../Images/admin.png">
                 <span class="nav-item">Admin</span>
             </a></li>
             <li><a href="#">
@@ -65,7 +65,7 @@
                                id="fullName"
                                name="fullName"
                                placeholder="Enter Full Name"
-                               value="${clientTrouvee.nom}"
+                               value="${clientTrouvee.code}"
                         />
 
 

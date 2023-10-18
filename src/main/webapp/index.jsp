@@ -27,9 +27,9 @@
                 <i class="fas fa-menorah"></i>
                 <span class="nav-item">Dashboard</span>
             </a></li>
-            <li><a href="#">
+            <li><a href="/displayAllDemandes">
                 <i class="fas fa-comment"></i>
-                <span class="nav-item">Message</span>
+                <span class="nav-item">list demandes</span>
             </a></li>
             <li><a href="#">
                 <i class="fas fa-database"></i>
