@@ -6,11 +6,11 @@
 <head>
     <meta charset="UTF-8" />
     <title>Easy Bank</title>
-    <link rel="stylesheet"  href="../../../Css/DemandeAdministration/FormeDemande.css" />
-    <link rel="stylesheet"  href="../../../Css/DemandeAdministration/PetiteCard.css" />
-    <link rel="stylesheet"  href="../../../Css/DemandeAdministration/style.css" />
-    <script src="../../../Js/Script.js" defer></script>
-    <script src="../../../Js/FormeScript.js" defer></script>
+    <link rel="stylesheet"  href="../../Css/DemandeAdministration/FormeDemande.css" />
+    <link rel="stylesheet"  href="../../Css/DemandeAdministration/PetiteCard.css" />
+    <link rel="stylesheet"  href="../../Css/DemandeAdministration/style.css" />
+    <script src="../../Js/Script.js" defer></script>
+    <script src="../../Js/FormeScript.js" defer></script>
 
     <!-- Font Awesome Cdn Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
@@ -19,21 +19,21 @@
 <div class="container">
     <nav>
         <ul>
-            <li><a href="#" class="logo">
+            <li><a href="/" class="logo">
                 <img src="../../../Images/admin.png">
                 <span class="nav-item">Admin</span>
             </a></li>
-            <li><a href="#">
+            <li><a href="/list">
                 <i class="fas fa-menorah"></i>
                 <span class="nav-item">Dashboard</span>
+            </a></li>
+            <li><a href="/displayFormDemande">
+                <i class="fas fa-database"></i>
+                <span class="nav-item">Credit Request</span>
             </a></li>
             <li><a href="#">
                 <i class="fas fa-comment"></i>
                 <span class="nav-item">Message</span>
-            </a></li>
-            <li><a href="#">
-                <i class="fas fa-database"></i>
-                <span class="nav-item">Report</span>
             </a></li>
             <li><a href="#">
                 <i class="fas fa-chart-bar"></i>

@@ -13,9 +13,10 @@ public  class Client extends Personne {
     private String adresse ;
   @Transient
    private Employe creator ;
-//    private List<Compte> comptes;
-   // private List<Demande> demande;
-
+  @Transient
+   private List<Compte> comptes;
+  @Transient
+   private List<Demande> demande;
 
 
     public Client(String nom, String prenom, String telephone , LocalDate dateNaissance, String code, String adresse) {
@@ -23,12 +24,12 @@ public  class Client extends Personne {
         setCode(code);
         setAdresse(adresse);
     }
-  //  public Client(String nom, String prenom, String telephone , LocalDate dateNaissance, String code, String adresse,Employe employe) {
-   //     super(nom, prenom, dateNaissance, telephone);
-   //     setCode(code);
-   //     setAdresse(adresse);
-    //    setCreator(employe);
-   // }
+    public Client(String nom, String prenom, String telephone , LocalDate dateNaissance, String code, String adresse,Employe employe) {
+        super(nom, prenom, dateNaissance, telephone);
+        setCode(code);
+        setAdresse(adresse);
+        setCreator(employe);
+    }
 
 
     public Client() {
@@ -54,13 +55,13 @@ public  class Client extends Personne {
     }
 
 
- //   public List<Compte> getComptes() {
- //       return comptes;
- //   }
+    public List<Compte> getComptes() {
+        return comptes;
+    }
 
-  //  public void setComptes(List<Compte> comptes) {
-    //    this.comptes = comptes;
-  //  }
+    public void setComptes(List<Compte> comptes) {
+        this.comptes = comptes;
+    }
 
     public Employe getCreator() {
         return creator;
@@ -71,11 +72,11 @@ public  class Client extends Personne {
     }
 
 
-  //  public List<Demande> getDemande() {
-   //     return demande;
-  //  }
+    public List<Demande> getDemande() {
+        return demande;
+    }
 
-  //  public void setDemande(List<Demande> demande) {
-   //     this.demande = demande;
-   // }
+    public void setDemande(List<Demande> demande) {
+        this.demande = demande;
+    }
 }

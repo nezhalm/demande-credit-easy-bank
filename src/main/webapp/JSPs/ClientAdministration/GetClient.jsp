@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Attendance Dashboard | By Code Info</title>
-    <link rel="stylesheet"  href="../../../Css/ClientAdministration/DashboardPage.css" />
+    <link rel="stylesheet"  href="../../Css/ClientAdministration/DashboardPage.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
 
@@ -18,19 +18,19 @@
         <ul>
             <li><a href="/" class="logo">
                 <img src="../../../Images/admin.png">
-                <span class="nav-item">EasyBank</span>
+                <span class="nav-item">Admin</span>
             </a></li>
-            <li><a href="#">
+            <li><a href="/list">
                 <i class="fas fa-menorah"></i>
                 <span class="nav-item">Dashboard</span>
+            </a></li>
+            <li><a href="/displayFormDemande">
+                <i class="fas fa-database"></i>
+                <span class="nav-item">Credit Request</span>
             </a></li>
             <li><a href="#">
                 <i class="fas fa-comment"></i>
                 <span class="nav-item">Message</span>
-            </a></li>
-            <li><a href="#">
-                <i class="fas fa-database"></i>
-                <span class="nav-item">Report</span>
             </a></li>
             <li><a href="#">
                 <i class="fas fa-chart-bar"></i>
@@ -66,7 +66,7 @@
         </div>
         <div class="users">
             <div class="card">
-                <img src="../../../Images/client.png">
+                <img src="../../Images/client.png">
                 <h4>Clients</h4>
                 <p>Progammer</p>
                 <div class="per">
@@ -89,7 +89,7 @@
             transition: background 0.3s, color 0.3s;" href="/new-client">Ajouter Client</a>
             </div>
             <div class="card">
-                <img style="width: 15%" src="../../../Images/equipe.png">
+                <img style="width: 15%" src="../../Images/equipe.png">
                 <h4>Employes</h4>
                 <p>Ui designer</p>
                 <div class="per">

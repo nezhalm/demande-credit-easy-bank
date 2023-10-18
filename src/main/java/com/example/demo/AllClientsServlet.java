@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -69,19 +70,19 @@ public class AllClientsServlet extends HttpServlet {
     }
     protected void displayeForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("employes", employeService.AllEmployes());
-        request.getRequestDispatcher("/WEB-INF/JSPs/ClientAdministration/AddClient.jsp").forward(request, response);
+        request.getRequestDispatcher("/JSPs/ClientAdministration/AddClient.jsp").forward(request, response);
     }
 
     protected void getClientTOUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String clientCode = request.getParameter("clientCode");
         request.setAttribute("employes", employeService.AllEmployes());
-        request.setAttribute("clientTrouvee", clientService.chercher(clientCode));
-        request.getRequestDispatcher("/WEB-INF/JSPs/ClientAdministration/UpdateClient.jsp").forward(request, response);
+        request.setAttribute("clientTrouvee", clientService.chercher(clientCode).orElse(null));
+        request.getRequestDispatcher("/JSPs/ClientAdministration/UpdateClient.jsp").forward(request, response);
     }
 
     protected void clientsDashboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("clients", clientService.AllClients());
-        request.getRequestDispatcher("/WEB-INF/JSPs/ClientAdministration/Dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("/JSPs/ClientAdministration/Dashboard.jsp").forward(request, response);
     }
     protected void searchClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String code = request.getParameter("code");
@@ -89,12 +90,25 @@ public class AllClientsServlet extends HttpServlet {
         System.out.println("testssss");
         if (client.isPresent()) {
             request.setAttribute("client", client.get());
-            request.getRequestDispatcher("/WEB-INF/JSPs/ClientAdministration/GetClient.jsp").forward(request, response);
+            request.getRequestDispatcher("/JSPs/ClientAdministration/GetClient.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/list?errorMessage=Le+client+introuvable.");
         }
     }
 
+    public void test(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String message = "List page";
+
+        response.setContentType("text/html");
+
+        // Hello
+        PrintWriter out = response.getWriter();
+        out.println("<html><body>");
+        out.println("<h1>" + message + "</h1>");
+        out.println("</body></html>");
+
+        request.getRequestDispatcher("/JSPs/ClientAdministration/Dashboard.jsp").forward(request, response);
+    }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -118,7 +132,7 @@ public class AllClientsServlet extends HttpServlet {
             // Validation des données (vous devrez ajouter une validation appropriée)
             if (fullName == null || username == null || email == null || phoneNumber == null || dateNaissanceStr == null) {
                 request.setAttribute("errorMessage", "Données du formulaire incorrectes.");
-                request.getRequestDispatcher("/WEB-INF/JSPs/erreur.jsp").forward(request, response);
+                request.getRequestDispatcher("/JSPs/erreur.jsp").forward(request, response);
                     }
 
             LocalDate dateNaissance = LocalDate.parse(dateNaissanceStr);
@@ -147,7 +161,7 @@ public class AllClientsServlet extends HttpServlet {
                 }
             } else {
                 request.setAttribute("errorMessage", "Employé non trouvé.");
-              //  request.getRequestDispatcher("/WEB-INF/JSPs/erreur.jsp").forward(request, response);
+              //  request.getRequestDispatcher("/JSPs/erreur.jsp").forward(request, response);
             }
             }
 
@@ -170,14 +184,12 @@ public class AllClientsServlet extends HttpServlet {
     }
     protected void displayeFormFemande(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("clients", clientService.AllClients());
-        request.getRequestDispatcher("/WEB-INF/JSPs/DemandeAdministration/DemandeForme.jsp").forward(request, response);
+        request.getRequestDispatcher("/JSPs/DemandeAdministration/DemandeForme.jsp").forward(request, response);
     }
 
         @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             doGet(request, response);
     }
-
-
 }
 
