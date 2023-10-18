@@ -17,22 +17,28 @@
   <nav>
     <ul>
       <li><a href="/" class="logo">
-        <img src="../../Images/admin.png">
-        <span class="nav-item">EasyBank</span>
+
+        <img src="../../../Images/admin.png">
+        <span class="nav-item">Admin</span>
       </a></li>
-      <li><a href="/">
+      <li><a href="/list">
+
         <i class="fas fa-menorah"></i>
         <span class="nav-item">Dashboard</span>
       </a></li>
       <li><a href="/displayFormDemande">
+
+        <i class="fas fa-database"></i>
+        <span class="nav-item">Credit Request</span>
+      </a></li>
+      <li><a href="#">
+
         <i class="fas fa-comment"></i>
         <span class="nav-item">Message</span>
       </a></li>
       <li><a href="#">
-        <i class="fas fa-database"></i>
-        <span class="nav-item">Report</span>
-      </a></li>
-      <li><a href="#">
+
+
         <i class="fas fa-chart-bar"></i>
         <span class="nav-item">Attendance</span>
       </a></li>
@@ -54,52 +60,37 @@
       <h1>Dashboard</h1>
       <%-- Affichez le message de succès --%>
       <c:if test="${not empty param.successMessage}">
-        <div class="alert alert-success">${param.successMessage}</div>
+
+        <div class="alert alert-success">
+          <p>${param.successMessage}</p>
+          <button type="button" class="close-alert"><i class="fas fa-times"></i></button>
+        </div>
       </c:if>
 
       <c:if test="${not empty param.errorMessage}">
-        <div class="alert alert-danger">${param.errorMessage}</div>
+        <div class="alert alert-danger">
+          <p>${param.errorMessage}</p>
+          <button type="button" class="close-alert"><i class="fas fa-times"></i></button>
+        </div>
       </c:if>
 
-
-      <i class="fas fa-user-cog"></i>
     </div>
     <div class="users">
       <div class="card">
         <img src="../../Images/client.png">
         <h4>Clients</h4>
         <p>Progammer</p>
-        <div class="per">
-          <table>
 
-          </table>
-        </div>
-         <a style="padding: 6px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            background: transparent;
-            border: 1px solid #ff7808;
-            width: 100%;
-            margin-top: 8px;
-            padding: 7px;
-            cursor: pointer;
-            border-radius: 10px;
-            background: transparent;
-            border: 1px solid #ff7808;
-            transition: background 0.3s, color 0.3s;" href="/addClient">Ajouter Client</a>
+         <a href="/addClient">Ajouter Client</a>
       </div>
       <div class="card">
-        <img style="width: 15%" src="../../Images/equipe.png">
+        <img src="../../Images/equipe.png">
         <h4>Employes</h4>
         <p>Ui designer</p>
-        <div class="per">
-          <table>
-
-
-          </table>
-        </div>
         <button>Ajouter Employe</button>
       </div>
+
+
     </div>
 
     <section class="attendance">
@@ -165,13 +156,15 @@
     </section>
   </section>
 </div>
+
+</body>
 <script>
-  document.getElementById('ajouterClientButton').addEventListener('click', function() {
-    window.location.href = '/new-client'; // Remplacez 'AddClient.html' par le chemin de votre page AddClient
+  const closeAlertBtn = document.querySelector(".close-alert");
+  const alert = document.querySelector(".alert");
+
+  closeAlertBtn.addEventListener("click", () => {
+    alert.style.display = "none";
   });
 </script>
 
-
-
-</body>
 </html>

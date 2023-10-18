@@ -15,23 +15,26 @@
 <div class="container">
     <nav>
         <ul>
-            <li><a href="#" class="logo">
-                <img src="../../Images/admin.png">
+
+            <li><a href="/" class="logo">
+                <img src="../../../Images/admin.png">
                 <span class="nav-item">Admin</span>
             </a></li>
-            <li><a href="#">
+            <li><a href="/list">
                 <i class="fas fa-menorah"></i>
                 <span class="nav-item">Dashboard</span>
             </a></li>
+            <li><a href="/displayFormDemande">
+                <i class="fas fa-database"></i>
+                <span class="nav-item">Credit Request</span>
+            </a></li>
+
             <li><a href="#">
                 <i class="fas fa-comment"></i>
                 <span class="nav-item">Message</span>
             </a></li>
             <li><a href="#">
-                <i class="fas fa-database"></i>
-                <span class="nav-item">Report</span>
-            </a></li>
-            <li><a href="#">
+
                 <i class="fas fa-chart-bar"></i>
                 <span class="nav-item">Attendance</span>
             </a></li>
@@ -65,7 +68,9 @@
                                id="fullName"
                                name="fullName"
                                placeholder="Enter Full Name"
-                               value="${clientTrouvee.code}"
+
+                               value="${clientTrouvee.nom}"
+
                         />
 
 

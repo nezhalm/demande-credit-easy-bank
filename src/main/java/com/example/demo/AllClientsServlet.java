@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -81,7 +82,9 @@ public class AllClientsServlet extends HttpServlet {
 
     protected void getClientTOUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("employes", employeService.AllEmployes());
+
         request.setAttribute("clientTrouvee", clientService.chercher(request.getParameter("clientCode")).get());
+
         request.getRequestDispatcher("/JSPs/ClientAdministration/UpdateClient.jsp").forward(request, response);
     }
 
@@ -100,6 +103,19 @@ public class AllClientsServlet extends HttpServlet {
         }
     }
 
+    public void test(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String message = "List page";
+
+        response.setContentType("text/html");
+
+        // Hello
+        PrintWriter out = response.getWriter();
+        out.println("<html><body>");
+        out.println("<h1>" + message + "</h1>");
+        out.println("</body></html>");
+
+        request.getRequestDispatcher("/JSPs/ClientAdministration/Dashboard.jsp").forward(request, response);
+    }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -152,7 +168,7 @@ public class AllClientsServlet extends HttpServlet {
                 }
             } else {
                 request.setAttribute("errorMessage", "Employé non trouvé.");
-              //  request.getRequestDispatcher("/WEB-INF/JSPs/erreur.jsp").forward(request, response);
+              //  request.getRequestDispatcher("/JSPs/erreur.jsp").forward(request, response);
             }
             }
 
@@ -176,17 +192,17 @@ public class AllClientsServlet extends HttpServlet {
     protected void displayeFormFemande(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("clients", clientService.AllClients());
         request.getRequestDispatcher("/JSPs/DemandeAdministration/DemandeForme.jsp").forward(request, response);
+
     }
     protected void displayAllDemandes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("demandes", demandeService.AllDemandes());
         System.out.println(demandeService.AllDemandes().get(0).getNumber());
         request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
+
     }
         @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             doGet(request, response);
     }
-
-
 }
 
