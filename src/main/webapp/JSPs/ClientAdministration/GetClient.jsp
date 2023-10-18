@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Attendance Dashboard | By Code Info</title>
-    <link rel="stylesheet"  href="../../../Css/ClientAdministration/DashboardPage.css" />
+    <link rel="stylesheet"  href="../../Css/ClientAdministration/DashboardPage.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
 
@@ -17,7 +17,7 @@
     <nav>
         <ul>
             <li><a href="/" class="logo">
-                <img src="../../../Images/admin.png">
+                <img src="../../Images/admin.png">
                 <span class="nav-item">EasyBank</span>
             </a></li>
             <li><a href="#">
@@ -66,7 +66,7 @@
         </div>
         <div class="users">
             <div class="card">
-                <img src="../../../Images/client.png">
+                <img src="../../Images/client.png">
                 <h4>Clients</h4>
                 <p>Progammer</p>
                 <div class="per">
@@ -89,7 +89,7 @@
             transition: background 0.3s, color 0.3s;" href="/new-client">Ajouter Client</a>
             </div>
             <div class="card">
-                <img style="width: 15%" src="../../../Images/equipe.png">
+                <img style="width: 15%" src="../../Images/equipe.png">
                 <h4>Employes</h4>
                 <p>Ui designer</p>
                 <div class="per">

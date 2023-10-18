@@ -11,7 +11,6 @@ public class Connexion {
     private Connection connection;
 
     private Map<String, String> getEnv = env.vars();
-
     private final String url = getEnv.get("DB_URL");
     private final String user = getEnv.get("DB_USERNAME");
     private final String password = getEnv.get("DB_PASSWORD");

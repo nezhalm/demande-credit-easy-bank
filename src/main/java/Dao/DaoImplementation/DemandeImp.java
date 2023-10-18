@@ -1,21 +1,27 @@
 package Dao.DaoImplementation;
-
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
+import org.hibernate.SessionFactory;
 import ConnexionBaseDonnes.Connexion;
 import Dao.DemandeDao;
-import Entities.Demande;
-import Entities.Simulation;
-import Enum.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import Entities.*;
+import org.hibernate.Session;
+import org.hibernate.cfg.Configuration;
+import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
 public class DemandeImp implements DemandeDao {
+    private SessionFactory sessionFactory;
+    public DemandeImp() {
+        Configuration configuration = new Configuration().configure();
+        sessionFactory = configuration.buildSessionFactory();
+    }
     private static final Connection connection = Connexion.getInstance().getConnection();
 
     @Override
@@ -59,6 +65,22 @@ public class DemandeImp implements DemandeDao {
 
     @Override
     public List<Demande> afficheList() {
-        return null;
+        List<Demande> demandes = new ArrayList<>();
+        try (Session session = sessionFactory.openSession()){
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Demande> criteriaQuery = builder.createQuery(Demande.class);
+            Root<Demande> root = criteriaQuery.from(Demande.class);
+            criteriaQuery.select(root);
+            List<Demande> results = session.createQuery(criteriaQuery).getResultList();
+            for (Demande demande : results) {
+                demandes.add(demande);
+            }
+            return demandes;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
+
 }

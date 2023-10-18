@@ -6,11 +6,11 @@
 <head>
     <meta charset="UTF-8" />
     <title>Easy Bank</title>
-    <link rel="stylesheet"  href="../../../Css/DemandeAdministration/FormeDemande.css" />
-    <link rel="stylesheet"  href="../../../Css/DemandeAdministration/PetiteCard.css" />
-    <link rel="stylesheet"  href="../../../Css/DemandeAdministration/style.css" />
-    <script src="../../../Js/Script.js" defer></script>
-    <script src="../../../Js/FormeScript.js" defer></script>
+    <link rel="stylesheet"  href="../../Css/DemandeAdministration/FormeDemande.css" />
+    <link rel="stylesheet"  href="../../Css/DemandeAdministration/PetiteCard.css" />
+    <link rel="stylesheet"  href="../../Css/DemandeAdministration/style.css" />
+    <script src="../../Js/Script.js" defer></script>
+    <script src="../../Js/FormeScript.js" defer></script>
 
     <!-- Font Awesome Cdn Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
@@ -20,7 +20,7 @@
     <nav>
         <ul>
             <li><a href="#" class="logo">
-                <img src="../../../Images/admin.png">
+                <img src="../../Images/admin.png">
                 <span class="nav-item">Admin</span>
             </a></li>
             <li><a href="#">

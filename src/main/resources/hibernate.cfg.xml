@@ -9,7 +9,8 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">nezha123</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <mapping class="Entities.Client" /> <!-- Remplacez "Entities.Client" par le package et le nom complet de votre classe Client -->
-        <mapping class="Entities.Personne" /> <!-- Remplacez "Entities.Personne" par le package et le nom complet de votre classe Personne -->
+        <mapping class="Entities.Client" />
+        <mapping class="Entities.Personne" />
+        <mapping class="Entities.Demande" />
     </session-factory>
 </hibernate-configuration>
