@@ -1,6 +1,7 @@
 /*  import google fonts */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 *{
+    width: 100%;
     margin: 0;
     padding: 0;
     outline: none;
@@ -16,7 +17,7 @@ nav{
     bottom: 0;
     height: 100vh;
     left: 0;
-    width: 90px;
+    width: 214px;
     /* width: 280px; */
     background: #fff;
     overflow: hidden;
@@ -280,7 +281,7 @@ table thead tr{
     left: -22px;
 }
 .field .value.right{
-    right: -43px;
+    right: -353px;
 }
 .range input{
     -webkit-appearance: none;

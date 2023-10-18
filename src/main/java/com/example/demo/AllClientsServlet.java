@@ -1,10 +1,12 @@
 
 package com.example.demo;
 import Dao.DaoImplementation.ClientImp;
+import Dao.DaoImplementation.DemandeImp;
 import Dao.DaoImplementation.EmployeImp;
 import Entities.Client;
 import Entities.Employe;
 import Service.ClientService;
+import Service.DemandeService;
 import Service.EmployeService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,21 +22,26 @@ import java.util.Optional;
 
 import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
-@WebServlet(urlPatterns = {"/displayFormDemande","/saveClient","/addClient","/list", "/deleteClient", "/savechangesClient", "/updateClient", "/listClients", "/searchClient"})
+@WebServlet(urlPatterns = {"/displayAllDemandes","/displayFormDemande","/saveClient","/addClient","/list", "/deleteClient", "/savechangesClient", "/updateClient", "/listClients", "/searchClient"})
 
 public class AllClientsServlet extends HttpServlet {
   ClientService clientService;
   EmployeService employeService;
+  DemandeService demandeService;
     @Override
     public void init() throws ServletException {
         clientService= new ClientService(new ClientImp());
         employeService= new EmployeService(new EmployeImp());
+        demandeService = new DemandeService(new DemandeImp());
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getServletPath();
         try {
             switch (action) {
+                case "/displayAllDemandes":
+                    displayAllDemandes(request, response);
+                    break;
                 case "/displayFormDemande":
                     displayeFormFemande(request, response);
                     break;
@@ -74,9 +81,10 @@ public class AllClientsServlet extends HttpServlet {
     }
 
     protected void getClientTOUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String clientCode = request.getParameter("clientCode");
         request.setAttribute("employes", employeService.AllEmployes());
-        request.setAttribute("clientTrouvee", clientService.chercher(clientCode).orElse(null));
+
+        request.setAttribute("clientTrouvee", clientService.chercher(request.getParameter("clientCode")).get());
+
         request.getRequestDispatcher("/JSPs/ClientAdministration/UpdateClient.jsp").forward(request, response);
     }
 
@@ -87,7 +95,6 @@ public class AllClientsServlet extends HttpServlet {
     protected void searchClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String code = request.getParameter("code");
         Optional<Client> client = clientService.chercher(code);
-        System.out.println("testssss");
         if (client.isPresent()) {
             request.setAttribute("client", client.get());
             request.getRequestDispatcher("/JSPs/ClientAdministration/GetClient.jsp").forward(request, response);
@@ -185,8 +192,14 @@ public class AllClientsServlet extends HttpServlet {
     protected void displayeFormFemande(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("clients", clientService.AllClients());
         request.getRequestDispatcher("/JSPs/DemandeAdministration/DemandeForme.jsp").forward(request, response);
-    }
 
+    }
+    protected void displayAllDemandes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("demandes", demandeService.AllDemandes());
+        System.out.println(demandeService.AllDemandes().get(0).getNumber());
+        request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
+
+    }
         @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             doGet(request, response);

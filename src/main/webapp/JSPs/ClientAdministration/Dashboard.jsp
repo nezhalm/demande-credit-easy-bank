@@ -17,22 +17,28 @@
   <nav>
     <ul>
       <li><a href="/" class="logo">
+
         <img src="../../../Images/admin.png">
         <span class="nav-item">Admin</span>
       </a></li>
       <li><a href="/list">
+
         <i class="fas fa-menorah"></i>
         <span class="nav-item">Dashboard</span>
       </a></li>
       <li><a href="/displayFormDemande">
+
         <i class="fas fa-database"></i>
         <span class="nav-item">Credit Request</span>
       </a></li>
       <li><a href="#">
+
         <i class="fas fa-comment"></i>
         <span class="nav-item">Message</span>
       </a></li>
       <li><a href="#">
+
+
         <i class="fas fa-chart-bar"></i>
         <span class="nav-item">Attendance</span>
       </a></li>
@@ -54,6 +60,7 @@
       <h1>Dashboard</h1>
       <%-- Affichez le message de succès --%>
       <c:if test="${not empty param.successMessage}">
+
         <div class="alert alert-success">
           <p>${param.successMessage}</p>
           <button type="button" class="close-alert"><i class="fas fa-times"></i></button>
@@ -66,12 +73,14 @@
           <button type="button" class="close-alert"><i class="fas fa-times"></i></button>
         </div>
       </c:if>
+
     </div>
     <div class="users">
       <div class="card">
         <img src="../../Images/client.png">
         <h4>Clients</h4>
         <p>Progammer</p>
+
          <a href="/addClient">Ajouter Client</a>
       </div>
       <div class="card">
@@ -147,6 +156,7 @@
     </section>
   </section>
 </div>
+
 </body>
 <script>
   const closeAlertBtn = document.querySelector(".close-alert");
@@ -156,4 +166,5 @@
     alert.style.display = "none";
   });
 </script>
+
 </html>

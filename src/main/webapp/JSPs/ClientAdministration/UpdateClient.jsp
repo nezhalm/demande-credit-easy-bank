@@ -15,6 +15,7 @@
 <div class="container">
     <nav>
         <ul>
+
             <li><a href="/" class="logo">
                 <img src="../../../Images/admin.png">
                 <span class="nav-item">Admin</span>
@@ -27,11 +28,13 @@
                 <i class="fas fa-database"></i>
                 <span class="nav-item">Credit Request</span>
             </a></li>
+
             <li><a href="#">
                 <i class="fas fa-comment"></i>
                 <span class="nav-item">Message</span>
             </a></li>
             <li><a href="#">
+
                 <i class="fas fa-chart-bar"></i>
                 <span class="nav-item">Attendance</span>
             </a></li>
@@ -65,7 +68,9 @@
                                id="fullName"
                                name="fullName"
                                placeholder="Enter Full Name"
+
                                value="${clientTrouvee.nom}"
+
                         />
 
 
