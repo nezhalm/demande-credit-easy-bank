@@ -1,4 +1,5 @@
 package Entities;
+import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
 
@@ -6,13 +7,28 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name = "agency")
 public class Agence {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String code;
+
+    @Column(name = "name")
     private String nom;
+
+    @Column(name = "address")
     private String adresse;
+
     private String tele;
+
+    @Transient
     private List<Compte> compteList;
+
+    @Transient
     private List<Employe> employeList;
+
+    @Transient
     private List<Demande> demandes;
 
     public Agence(String code, String nom, String address, String tele) {

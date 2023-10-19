@@ -4,14 +4,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Attendance Dashboard | By Code Info</title>
-    <link rel="stylesheet"  href="../../../Css/ClientAdministration/DashboardPage.css" />
-    <link rel="stylesheet"  href="../../../Css/ClientAdministration/home.css" />
-
+    <link rel="stylesheet" href="../../../Css/ClientAdministration/DashboardPage.css"/>
+    <link rel="stylesheet" href="../../../Css/ClientAdministration/home.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
-
     <!-- Font Awesome Cdn Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
 </head>
@@ -32,7 +30,6 @@
                 <i class="fas fa-database"></i>
                 <span class="nav-item">Credit Request</span>
             </a></li>
-            <li><a href="#">
             <li><a href="/displayAllDemandes">
 
                 <i class="fas fa-comment"></i>
@@ -72,42 +69,13 @@
         </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </section>
 </div>
 <script>
-    document.getElementById('ajouterClientButton').addEventListener('click', function() {
+    document.getElementById('ajouterClientButton').addEventListener('click', function () {
         window.location.href = 'new-client'; // Remplacez 'AddClient.html' par le chemin de votre page AddClient
     });
 </script>
-
 
 
 </body>

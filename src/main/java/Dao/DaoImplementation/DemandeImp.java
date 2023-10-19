@@ -7,6 +7,7 @@ import ConnexionBaseDonnes.Connexion;
 import Dao.DemandeDao;
 import Entities.*;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -26,29 +27,28 @@ public class DemandeImp implements DemandeDao {
 
     @Override
     public Optional<Demande> ajouter(Demande demande) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+
         try {
-            String sql = "INSERT INTO demande (codeemploye, codeagence, codeclient, price, duration, remarque, date, number, status, mensualite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Active'::statusdemande, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, demande.getEmploye().getMatricule());
-            LocalDateTime dateEtHeureCreation = LocalDateTime.now();
-            // Convertissez la date et l'heure actuelles en java.sql.Timestamp
-            Timestamp timestamp = Timestamp.valueOf(dateEtHeureCreation);
-            preparedStatement.setString(2, demande.getAgence().getCode());
-            preparedStatement.setString(3, demande.getClient().getCode());
-            preparedStatement.setDouble(4, demande.getPrice());
-            preparedStatement.setDouble(5, demande.getDuration());
-            preparedStatement.setString(6, demande.getRemarque());
-            preparedStatement.setTimestamp(7, timestamp);
-            preparedStatement.setString(8, genererCodeUnique(4));
-            preparedStatement.setDouble(9, demande.getMonsualite());
+            transaction = session.beginTransaction();
 
-            preparedStatement.executeUpdate();
+            session.save(demande);
 
-            return Optional.ofNullable(demande);
-        } catch (SQLException e) {
-            e.printStackTrace(); // Vous pouvez imprimer la trace de l'exception pour le débogage
-            return Optional.empty(); // En cas d'erreur, retournez un Optional vide
+            transaction.commit();
+
+            session.close();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+
+            demande = null;
+
+            e.printStackTrace();
         }
+
+        return Optional.ofNullable(demande);
     }
 
 
