@@ -8,6 +8,7 @@ public abstract class  Compte {
     protected String numero;
     protected LocalDate dateCreation;
     protected Etat etat;
+
     protected Employe employe;
     protected Client client;
     protected Agence agence;

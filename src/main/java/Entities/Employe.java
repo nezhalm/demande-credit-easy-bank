@@ -4,12 +4,19 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
+@Table(name = "employee")
 public class Employe extends Personne {
-
+    @Id
+    @Column(name = "code")
     private String matricule;
+    @Column(name = "recruited_at")
     private LocalDate dateRecrutement;
+    @Column(name = "email")
     private String email;
+    @Transient
     private List<Compte> comptes;
+    @Transient
     private List<Mission> mission;
   //  private List<Operation> operations;
 
