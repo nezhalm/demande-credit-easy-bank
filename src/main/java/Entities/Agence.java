@@ -7,7 +7,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-
 @Entity
 @Table(name = "agency")
 public class Agence {
@@ -20,10 +19,10 @@ public class Agence {
     private String adresse;
     @Column(name = "tele")
     private String tele;
-   @Transient
+    @Transient
     private List<Compte> compteList;
 
-   @Transient
+    @Transient
     private List<Employe> employeList;
 
     @OneToMany(mappedBy = "agence")

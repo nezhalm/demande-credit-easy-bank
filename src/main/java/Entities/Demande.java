@@ -15,12 +15,10 @@ import java.time.LocalDateTime;
 public class Demande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "number")
     private String number;
 
     @Column(name = "mensualite")
     private Double monsualite;
-
 
     @ManyToOne
     @JoinColumn(name = "codeagence")
@@ -36,18 +34,26 @@ public class Demande {
     @Column(name = "price")
     private Integer price;
 
-    @Column(name = "duration")
     private Integer duration;
 
-    @Column(name = "remarque")
     private String remarque;
 
-    @Column(name = "date")
     private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
     private StatusDemande status;
+
+    @ManyToOne
+    @JoinColumn(name = "codeemploye")
+    private Employe employe;
+
+    @ManyToOne
+    @JoinColumn(name = "codeagence")
+    private Agence agence;
+
+    @ManyToOne
+    @JoinColumn(name = "codeclient")
+    private Client client;
     public Demande(Employe employe, Agence agence, Client client, Integer credit, Integer duree, String remarque, LocalDateTime dateEtHeureCreation, String s, StatusDemande statusDemande, Double monsualite) {
          setEmploye(employe);
          setAgence(agence);
