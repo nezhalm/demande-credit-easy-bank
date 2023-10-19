@@ -11,24 +11,21 @@ import java.util.List;
 @Table(name = "agency")
 public class Agence {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "code")
     private String code;
-
     @Column(name = "name")
     private String nom;
-
     @Column(name = "address")
     private String adresse;
-
+    @Column(name = "tele")
     private String tele;
-
     @Transient
     private List<Compte> compteList;
 
     @Transient
     private List<Employe> employeList;
 
-    @Transient
+    @OneToMany(mappedBy = "agence")
     private List<Demande> demandes;
 
     public Agence(String code, String nom, String address, String tele) {

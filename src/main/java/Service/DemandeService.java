@@ -44,4 +44,9 @@ public class DemandeService {
         return demandeList;
     }
 
+    public Optional<Demande> UpdateStatus(StatusDemande status,String number) {
+        Optional<Demande> DemandeUpdated = demandeImp.UpdateStatus(status,number);
+        return DemandeUpdated;
+    }
+
 }

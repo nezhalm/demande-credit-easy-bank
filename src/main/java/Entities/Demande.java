@@ -20,6 +20,18 @@ public class Demande {
     @Column(name = "mensualite")
     private Double monsualite;
 
+    @ManyToOne
+    @JoinColumn(name = "codeagence")
+    private Agence agence;
+    @ManyToOne
+    @JoinColumn(name = "codeemploye")
+    private Employe employe;
+
+    @ManyToOne
+    @JoinColumn(name = "codeclient")
+    private Client client;
+
+    @Column(name = "price")
     private Integer price;
 
     private Integer duration;

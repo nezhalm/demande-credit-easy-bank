@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import ConnexionBaseDonnes.Connexion;
 import Dao.DemandeDao;
 import Entities.*;
+import Enum.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
@@ -82,5 +83,23 @@ public class DemandeImp implements DemandeDao {
         }
     }
 
+
+    public Optional<Demande> UpdateStatus(StatusDemande status, String number) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Demande demande = session.get(Demande.class, number);
+            if (demande != null) {
+                demande.setStatus(status);
+                session.update(demande);
+                transaction.commit();
+                return Optional.of(demande);
+            } else {
+                return Optional.empty();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
+    }
 
 }

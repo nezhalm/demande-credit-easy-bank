@@ -7,20 +7,15 @@ import java.util.List;
 @Entity
 @Table(name = "employee")
 public class Employe extends Personne {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code")
     private String matricule;
-
     @Column(name = "recruited_at")
     private LocalDate dateRecrutement;
-
+    @Column(name = "email")
     private String email;
-
     @Transient
     private List<Compte> comptes;
-
     @Transient
     private List<Mission> mission;
   //  private List<Operation> operations;
