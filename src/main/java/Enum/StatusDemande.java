@@ -1,6 +1,7 @@
 package Enum;
 
 public enum StatusDemande {
-    Active,
-    Late,
+    Pending,
+    Accepted,
+    Rejected
 }

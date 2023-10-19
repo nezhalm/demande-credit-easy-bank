@@ -2,6 +2,8 @@ package Dao.DaoImplementation;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import ConnexionBaseDonnes.Connexion;
 import Dao.DemandeDao;
@@ -30,25 +32,18 @@ public class DemandeImp implements DemandeDao {
     public Optional<Demande> ajouter(Demande demande) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-
         try {
             transaction = session.beginTransaction();
-
             session.save(demande);
-
             transaction.commit();
-
             session.close();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-
             demande = null;
-
             e.printStackTrace();
         }
-
         return Optional.ofNullable(demande);
     }
 
@@ -61,21 +56,38 @@ public class DemandeImp implements DemandeDao {
 
     @Override
     public Optional<Demande> chercher(String var) {
-        return Optional.empty();
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Demande> query = builder.createQuery(Demande.class);
+            Root<Demande> demandeRoot = query.from(Demande.class);
+            query.select(demandeRoot);
+            query.where(builder.equal(demandeRoot.get("number"), var));
+            Demande demande = session.createQuery(query).uniqueResult();
+
+            return Optional.ofNullable(demande);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+
+        }
+
     }
+
 
     @Override
     public List<Demande> afficheList() {
         List<Demande> demandes = new ArrayList<>();
         try (Session session = sessionFactory.openSession()){
+            session.beginTransaction();
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Demande> criteriaQuery = builder.createQuery(Demande.class);
             Root<Demande> root = criteriaQuery.from(Demande.class);
             criteriaQuery.select(root);
             List<Demande> results = session.createQuery(criteriaQuery).getResultList();
-            for (Demande demande : results) {
-                demandes.add(demande);
-            }
+            demandes.addAll(results);
+            session.getTransaction().commit();
             return demandes;
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,13 +97,15 @@ public class DemandeImp implements DemandeDao {
 
 
     public Optional<Demande> UpdateStatus(StatusDemande status, String number) {
+
         try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            Demande demande = session.get(Demande.class, number);
-            if (demande != null) {
-                demande.setStatus(status);
-                session.update(demande);
-                transaction.commit();
+            Optional<Demande> demandeOptional = chercher(number);
+            if (demandeOptional.isPresent()) {
+                Demande demande = demandeOptional.get();
+                demande.setStatus(status); // Mettez à jour le champ 'status'
+                session.beginTransaction();
+                session.merge(demande);
+                session.getTransaction().commit();
                 return Optional.of(demande);
             } else {
                 return Optional.empty();
@@ -101,5 +115,18 @@ public class DemandeImp implements DemandeDao {
             return Optional.empty();
         }
     }
+
+    public List<Demande> searchDemandesByLabel(String label) {
+        CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
+        CriteriaQuery<Demande> criteriaQuery = builder.createQuery(Demande.class);
+        Root<Demande> demandeRoot = criteriaQuery.from(Demande.class);
+        criteriaQuery.select(demandeRoot)
+                .where(builder.equal(demandeRoot.get("label"), label));
+
+        return sessionFactory.getCurrentSession().createQuery(criteriaQuery).getResultList();
+    }
+
+
+
 
 }
