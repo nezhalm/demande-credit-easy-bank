@@ -21,13 +21,15 @@ public class Demande {
     @Column(name = "mensualite")
     private Double monsualite;
 
-    @JoinColumn(name = "codeemploye")
-    @Transient
-    private Employe employe;
-    @Transient
+
+    @ManyToOne
     @JoinColumn(name = "codeagence")
     private Agence agence;
-    @Transient
+    @ManyToOne
+    @JoinColumn(name = "codeemploye")
+    private Employe employe;
+
+    @ManyToOne
     @JoinColumn(name = "codeclient")
     private Client client;
 
