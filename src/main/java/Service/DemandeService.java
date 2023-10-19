@@ -32,7 +32,7 @@ public class DemandeService {
             double tauxInteretMensuel = 0.12 / 12.0;
             double denominateur = 1 - Math.pow(1 + tauxInteretMensuel, -duree);
             double mensualite = credit * (tauxInteretMensuel / denominateur);
-            Demande demandevalide = new Demande(employeImp.chercher(codeEmploye).get(), agenceImp.chercher(codeAgence).get(), clientImp.chercher(codeClient).get(), credit, duree, remarque, dateEtHeureCreation, genererCodeUnique(4), StatusDemande.Active, mensualite);
+            Demande demandevalide = new Demande(employeImp.chercher(codeEmploye).get(), agenceImp.chercher(codeAgence).get(), clientImp.chercher(codeClient).get(), credit, duree, remarque, dateEtHeureCreation, genererCodeUnique(4), StatusDemande.Accepted, mensualite);
            Optional<Demande> test = demandeImp.ajouter(demandevalide);
                 result = Optional.of(test).get();
         }
@@ -44,9 +44,19 @@ public class DemandeService {
         return demandeList;
     }
 
+    public List<Demande> searchDemandesByLabel(String label) {
+        List<Demande> demandeList = demandeImp.searchDemandesByLabel(label);
+        return demandeList;
+    }
+
+
     public Optional<Demande> UpdateStatus(StatusDemande status,String number) {
         Optional<Demande> DemandeUpdated = demandeImp.UpdateStatus(status,number);
         return DemandeUpdated;
     }
+
+
+
+
 
 }

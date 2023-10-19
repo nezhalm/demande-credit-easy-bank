@@ -22,7 +22,7 @@ import java.util.Optional;
 
 import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
-@WebServlet(urlPatterns = {"/displayAllDemandes","/displayFormDemande","/saveClient","/addClient","/list", "/deleteClient", "/savechangesClient", "/updateClient", "/listClients", "/searchClient"})
+@WebServlet(urlPatterns = {"/displayFormDemande","/saveClient","/addClient","/list", "/deleteClient", "/savechangesClient", "/updateClient", "/listClients", "/searchClient"})
 
 public class AllClientsServlet extends HttpServlet {
   ClientService clientService;
@@ -39,9 +39,7 @@ public class AllClientsServlet extends HttpServlet {
         String action = request.getServletPath();
         try {
             switch (action) {
-                case "/displayAllDemandes":
-                    displayAllDemandes(request, response);
-                    break;
+
                 case "/displayFormDemande":
                     displayeFormFemande(request, response);
                     break;
@@ -194,12 +192,7 @@ public class AllClientsServlet extends HttpServlet {
         request.getRequestDispatcher("/JSPs/DemandeAdministration/DemandeForme.jsp").forward(request, response);
 
     }
-    protected void displayAllDemandes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("demandes", demandeService.AllDemandes());
-        System.out.println(demandeService.AllDemandes().get(0).getNumber());
-        request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
 
-    }
         @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             doGet(request, response);

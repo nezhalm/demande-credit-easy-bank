@@ -23,7 +23,7 @@ import java.util.Optional;
 
 import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
-@WebServlet(urlPatterns = {"/updateStatus"})
+@WebServlet(urlPatterns = {"/updateStatus","/displayAllDemandes","/searchByStatus","/searchByDate"})
 
 public class DemandeServlet extends HttpServlet {
     ClientService clientService;
@@ -43,7 +43,15 @@ public class DemandeServlet extends HttpServlet {
                 case "/updateStatus":
                     updateStatus(request, response);
                     break;
-
+                case "/displayAllDemandes":
+                    displayAllDemandes(request, response);
+                    break;
+                case "/searchByDate":
+                    searchByDate(request, response);
+                    break;
+                case "/searchByStatus":
+                    searchByStatus(request, response);
+                    break;
                 default:
                     System.out.println("choice not found");
                     break;
@@ -52,32 +60,31 @@ public class DemandeServlet extends HttpServlet {
             throw new ServletException(ex);
         }
     }
-    protected void updateStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void updateStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String status = request.getParameter("status");
         String number = request.getParameter("number");
-        StatusDemande statusDemande;
-        if (status != null && !status.isEmpty()) {
-            switch (status.toLowerCase()) {
-                case "Active":
-                    statusDemande = StatusDemande.Active;
-                    break;
-                case "Late":
-                    statusDemande = StatusDemande.Late;
-                    break;
-                default:
-                    statusDemande = StatusDemande.Active;
-                    break;
-            }
-        } else {
-
-            statusDemande = StatusDemande.Active;
-        }
-       request.setAttribute("employes", demandeService.UpdateStatus(statusDemande,number));
-        System.out.println("status updated");
-       // request.getRequestDispatcher("/JSPs/ClientAdministration/AddClient.jsp").forward(request, response);
+        StatusDemande statusDemande = StatusDemande.valueOf(status);
+        request.setAttribute("employes", demandeService.UpdateStatus(statusDemande,number));
+        displayAllDemandes(request,response);
     }
+    private void displayAllDemandes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("demandes", demandeService.AllDemandes());
+        System.out.println(demandeService.AllDemandes());
+        request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
+    }
+    private void searchByDate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // request.setAttribute("demandes", demandeService.AllDemandes());
+        System.out.println("date");
+       // request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
 
+    }
+    private void searchByStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String status = request.getParameter("label");
+        request.setAttribute("demandes", demandeService.searchDemandesByLabel(status));
+        System.out.println(demandeService.searchDemandesByLabel(status));
+     //   request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
 
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
