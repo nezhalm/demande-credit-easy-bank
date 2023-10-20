@@ -20,7 +20,6 @@ public class DemandeImpTest {
 
     @BeforeAll
     public static void setUp() {
-//        Connection conn = Connexion.getInstance().getConnection();
         demandeImp = new DemandeImp();
     }
 
@@ -37,16 +36,16 @@ public class DemandeImpTest {
         client.setCode("565");
 
         Demande demande = new Demande(
-                number, // number
-                4435.34, // monsualite
-                150000, // price
-                20, // duration
-                "Remarque testing", // remarque
-                LocalDateTime.now(), // date
-                StatusDemande.Pending, // status
-                employe, // employee
-                agence, // agence
-                client // client
+                number,
+                4435.34,
+                150000,
+                20,
+                "Remarque testing",
+                LocalDateTime.now(),
+                StatusDemande.Pending,
+                employe,
+                agence,
+                client
         );
 
         Optional<Demande> newDemande = demandeImp.ajouter(demande);

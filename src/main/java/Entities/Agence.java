@@ -9,9 +9,9 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "agency")
+@ToString
 public class Agence {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code")
     private String code;
     @Column(name = "name")
