@@ -73,16 +73,15 @@ public class DemandeServlet extends HttpServlet {
         request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
     }
     private void searchByDate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // request.setAttribute("demandes", demandeService.AllDemandes());
-        System.out.println("date");
-       // request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
+        LocalDate date = LocalDate.parse(request.getParameter("date"));
+        request.setAttribute("demandes", demandeService.searchDemandesByDate(date));
+         request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
 
     }
     private void searchByStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String status = request.getParameter("label");
-        request.setAttribute("demandes", demandeService.searchDemandesByLabel(status));
-        System.out.println(demandeService.searchDemandesByLabel(status));
-     //   request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
+        StatusDemande statusDemande = StatusDemande.valueOf(request.getParameter("status"));
+        request.setAttribute("demandes", demandeService.searchDemandesByLabel(statusDemande));
+        request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
 
     }
     @Override
