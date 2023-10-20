@@ -1,5 +1,6 @@
 
 package com.example.demo;
+import Dao.DaoImplementation.AgenceImp;
 import Dao.DaoImplementation.ClientImp;
 import Dao.DaoImplementation.DemandeImp;
 import Dao.DaoImplementation.EmployeImp;
@@ -8,6 +9,7 @@ import Entities.Client;
 import Entities.Demande;
 import Entities.Employe;
 import Enum.*;
+import Service.AgenceService;
 import Service.ClientService;
 import Service.DemandeService;
 import Service.EmployeService;
@@ -32,11 +34,13 @@ public class DemandeServlet extends HttpServlet {
     ClientService clientService;
     EmployeService employeService;
     DemandeService demandeService;
+    AgenceService agenceService;
     @Override
     public void init() throws ServletException {
         clientService= new ClientService(new ClientImp());
         employeService= new EmployeService(new EmployeImp());
         demandeService = new DemandeService(new DemandeImp());
+        agenceService = new AgenceService(new AgenceImp());
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,6 +60,9 @@ public class DemandeServlet extends HttpServlet {
                     searchByStatus(request, response);
                 case "/add":
                     addDemande(request, response);
+                    break;
+                case "/displayFormDemande":
+                    displayeFormDemande(request, response);
                     break;
                 default:
                     System.out.println("choice not found");
@@ -130,6 +137,11 @@ public class DemandeServlet extends HttpServlet {
         }
 
         displayAllDemandes(request, response);
+    }
+
+    protected void displayeFormDemande(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("agences", agenceService.getAllAgencies());
+        request.getRequestDispatcher("/JSPs/DemandeAdministration/DemandeForme.jsp").forward(request, response);
     }
 
     @Override

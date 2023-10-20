@@ -8,7 +8,6 @@ import java.util.List;
 @Table(name = "employee")
 public class Employe extends Personne {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code")
     private String matricule;
     @Column(name = "recruited_at")

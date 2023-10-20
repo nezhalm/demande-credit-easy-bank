@@ -43,9 +43,6 @@ public class DemandeImp implements DemandeDao {
             }
             demande = null;
             e.printStackTrace();
-            System.out.println("####################### EXCEPTION #######################");
-            System.out.println("Error: " + e.getMessage());
-            System.out.println("#########################################################");
         }
         return Optional.ofNullable(demande);
     }
