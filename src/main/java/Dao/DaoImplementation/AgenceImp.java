@@ -15,10 +15,20 @@ import java.util.Optional;
 
 import Entities.Mission;
 import Enum.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+
 import static Dao.DaoImplementation.OperationImp.genererCodeUnique;
 
 public class AgenceImp implements AgenceDao {
     private static final Connection connection = Connexion.getInstance().getConnection();
+    private SessionFactory sessionFactory;
+
+    public AgenceImp() {
+        sessionFactory = new Configuration().configure().buildSessionFactory();
+    }
 
     @Override
     public Optional<Agence> ajouter(Agence agence) {
@@ -83,6 +93,16 @@ public class AgenceImp implements AgenceDao {
 
     @Override
     public List<Agence> afficheList() {
-        return null;
+        List<Agence> agences = new ArrayList<>();
+
+        try (Session session = sessionFactory.openSession()) {
+            Query<Agence> query = session.createQuery("FROM Agence", Agence.class);
+            agences = query.list();
+        } catch (Exception e) {
+            System.out.println("Error AgenceImp -> afficheList: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return agences;
     }
 }

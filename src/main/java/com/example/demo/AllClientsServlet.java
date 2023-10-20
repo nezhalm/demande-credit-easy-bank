@@ -39,10 +39,6 @@ public class AllClientsServlet extends HttpServlet {
         String action = request.getServletPath();
         try {
             switch (action) {
-
-                case "/displayFormDemande":
-                    displayeFormFemande(request, response);
-                    break;
                 case "/saveClient":
                     addClient(request, response);
                     break;
@@ -52,7 +48,6 @@ public class AllClientsServlet extends HttpServlet {
                 case "/deleteClient":
                     doDelete(request, response);
                     break;
-
                 case "/updateClient":
                     getClientTOUpdate(request, response);
                     break;
@@ -99,20 +94,6 @@ public class AllClientsServlet extends HttpServlet {
         } else {
             response.sendRedirect(request.getContextPath() + "/list?errorMessage=Le+client+introuvable.");
         }
-    }
-
-    public void test(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String message = "List page";
-
-        response.setContentType("text/html");
-
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
-
-        request.getRequestDispatcher("/JSPs/ClientAdministration/Dashboard.jsp").forward(request, response);
     }
 
     @Override
@@ -186,13 +167,8 @@ public class AllClientsServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/list?errorMessage=error+dans+la+modification+du+client.");
         }
     }
-    protected void displayeFormFemande(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("clients", clientService.AllClients());
-        request.getRequestDispatcher("/JSPs/DemandeAdministration/DemandeForme.jsp").forward(request, response);
 
-    }
-
-        @Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             doGet(request, response);
     }

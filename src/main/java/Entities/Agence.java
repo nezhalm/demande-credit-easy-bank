@@ -9,6 +9,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "agency")
+@ToString
 public class Agence {
     @Id
     @Column(name = "code")

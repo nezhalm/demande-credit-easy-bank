@@ -3,6 +3,7 @@ import Dao.AgenceDao;
 import Dao.DaoImplementation.AgenceImp;
 import Entities.Agence;
 
+import java.util.List;
 import java.util.Optional;
 
 public class AgenceService  {
@@ -31,5 +32,9 @@ public class AgenceService  {
         } else {
             return false;
         }
+    }
+
+    public List<Agence> getAllAgencies() {
+        return agenceDao.afficheList();
     }
 }

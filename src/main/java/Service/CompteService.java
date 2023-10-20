@@ -6,6 +6,7 @@ import Entities.CompteCourant;
 import Entities.CompteEpargne;
 import Entities.Employe;
 import Enum.Etat;
+import Utils.ExtraMethods;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -45,7 +46,7 @@ public class CompteService {
                         System.out.println("client n'existe pas");
                         System.exit(0);
                     }
-                    String codeUnique =   CompteCourantImp.genererCodeUnique(5);
+                    String codeUnique = ExtraMethods.generateUniqueCode(5);
                     System.out.print("Entrez le solde : ");
                     Double soldeCourant = scanner4.nextDouble();
                     LocalDate dateActuelle = LocalDate.now();
@@ -77,7 +78,7 @@ public class CompteService {
                         System.out.println("client n'existe pas");
                         System.exit(0);
                     }
-                    String codeUnique2 =   CompteCourantImp.genererCodeUnique(5);
+                    String codeUnique2 = ExtraMethods.generateUniqueCode(5);
                     System.out.print("Entrez le solde : ");
                     Double soldeepargne = scanner5.nextDouble();
                     LocalDate dateActuellee = LocalDate.now();

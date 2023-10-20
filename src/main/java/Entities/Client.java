@@ -7,6 +7,7 @@ import java.util.List;
 @Table(name = "client")
 public  class Client extends Personne {
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code")
     private String code ;
     @Column(name = "address")

@@ -4,6 +4,7 @@ import ConnexionBaseDonnes.Connexion;
 import Dao.CompteCourantDao;
 import Entities.*;
 import Enum.*;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,10 +16,7 @@ import java.util.Optional;
 import java.util.Random;
 
 public class CompteCourantImp implements CompteCourantDao {
- private static final Connection connection = Connexion.getInstance().getConnection();
-
-
-
+    private static final Connection connection = Connexion.getInstance().getConnection();
 
 
     @Override
@@ -63,7 +61,7 @@ public class CompteCourantImp implements CompteCourantDao {
 
 
     public Optional<CompteCourant> changerStatus(CompteCourant compteCourant, Etat etat) throws Exception {
-        String sql ="UPDATE current_account SET account_status = ?::accountstatus WHERE number = ?";
+        String sql = "UPDATE current_account SET account_status = ?::accountstatus WHERE number = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, etat.toString());
             preparedStatement.setString(2, compteCourant.getNumero());
@@ -77,18 +75,16 @@ public class CompteCourantImp implements CompteCourantDao {
     }
 
 
-
-
     @Override
-    public Optional<CompteCourant> chercher(String var)  {
-       List<CompteCourant> employes = afficheList();
+    public Optional<CompteCourant> chercher(String var) {
+        List<CompteCourant> employes = afficheList();
         List<CompteCourant> employeList = employes;
         return employeList.stream()
                 .filter(employe -> employe.getNumero().equals(var))
                 .findFirst();
 
 
-}
+    }
 
     public Optional<List<Compte>> chercherParClient(Optional<Client> client) throws Exception {
         String query = "SELECT 'saving' as account_type, number, balance FROM saving_account WHERE client_code = ? " +
@@ -148,7 +144,7 @@ public class CompteCourantImp implements CompteCourantDao {
                 AgenceImp agence = new AgenceImp();
                 Optional<Employe> emp = employe.chercher(employee_code);
                 Optional<Client> cli = client.chercher(client_code);
-                compteCourants.add(new CompteCourant(balance, number, created_at, etat, emp.get(), cli.get(), overdraft,agence.chercher(agence_code).get()));
+                compteCourants.add(new CompteCourant(balance, number, created_at, etat, emp.get(), cli.get(), overdraft, agence.chercher(agence_code).get()));
             }
             return compteCourants;
         } catch (SQLException e) {
@@ -156,22 +152,11 @@ public class CompteCourantImp implements CompteCourantDao {
             return compteCourants;
         } catch (Exception e) {
             e.printStackTrace();
-            return compteCourants ;
+            return compteCourants;
         }
     }
 
-
-
-    public static String genererCodeUnique(int longueur) {
-        Random random = new Random();
-        StringBuilder code = new StringBuilder();
-        for (int i = 0; i < longueur; i++) {
-            int chiffre = random.nextInt(10);
-            code.append(chiffre);
-        }
-        return code.toString();
-    }
-    public  Optional<CompteCourant> retrait(CompteCourant compteCourant, Employe employe , Double montant, TypeOperation typeOperation){
+    public Optional<CompteCourant> retrait(CompteCourant compteCourant, Employe employe, Double montant, TypeOperation typeOperation) {
         if (montant < 0) {
             System.out.println("Le montant du versement doit être positif");
             System.exit(0);
@@ -189,7 +174,7 @@ public class CompteCourantImp implements CompteCourantDao {
 
             // Si la mise à jour a réussi, créez une opération
             if (rowsAffected > 0) {
-            OperationImp operationImp = new OperationImp();
+                OperationImp operationImp = new OperationImp();
                 Operation operation = new Operation();
                 operation.setComptes(compteCourant);
                 operation.setEmployes(employe);
@@ -199,7 +184,7 @@ public class CompteCourantImp implements CompteCourantDao {
             } else {
                 throw new SQLException("Échec de la mise à jour du solde du compte courant");
             }
-        } catch ( SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Erreur lors de la mise à jour du solde du compte courant", e);
         } catch (Exception e) {
@@ -209,7 +194,7 @@ public class CompteCourantImp implements CompteCourantDao {
     }
 
     @Override
-    public  Optional<CompteCourant> versement(CompteCourant compteCourant, Employe employe , Double montant, TypeOperation typeOperation){
+    public Optional<CompteCourant> versement(CompteCourant compteCourant, Employe employe, Double montant, TypeOperation typeOperation) {
         if (montant < 0) {
             throw new IllegalArgumentException("Le montant du versement doit être positif");
         }
@@ -232,7 +217,7 @@ public class CompteCourantImp implements CompteCourantDao {
             } else {
                 throw new SQLException("Échec de la mise à jour du solde du compte courant");
             }
-        } catch ( SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Erreur lors de la mise à jour du solde du compte courant", e);
         } catch (Exception e) {
