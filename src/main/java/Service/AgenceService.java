@@ -12,8 +12,6 @@ public class AgenceService  {
         this.agenceDao = agenceDao;
     }
 
-
-
     public Optional<Agence> ajouterAgence(Agence agence) {
         if (agence.getCode().isEmpty()|| agence.getNom().isEmpty()|| agence.getTele().isEmpty()||agence.getAdresse().isEmpty())
             throw new IllegalArgumentException("aucun champ doit etre vide.");

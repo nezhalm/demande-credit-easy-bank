@@ -100,7 +100,6 @@ public class AllClientsServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String clientCode = req.getParameter("clientCode");
         boolean deleted = clientService.chercherPourSupprimer(clientCode);
-
         if (deleted) {
             resp.sendRedirect(req.getContextPath() + "/list?successMessage=Le+client+a+ete+supprime+avec+succes.");
         } else {

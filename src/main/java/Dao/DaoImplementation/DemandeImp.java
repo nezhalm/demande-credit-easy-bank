@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +22,11 @@ import java.util.Optional;
 import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
 public class DemandeImp implements DemandeDao {
-    private SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
     public DemandeImp() {
         Configuration configuration = new Configuration().configure();
         sessionFactory = configuration.buildSessionFactory();
     }
-    private static final Connection connection = Connexion.getInstance().getConnection();
 
     @Override
     public Optional<Demande> ajouter(Demande demande) {
@@ -117,14 +117,56 @@ public class DemandeImp implements DemandeDao {
     }
 
     public List<Demande> searchDemandesByLabel(String label) {
-        CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
-        CriteriaQuery<Demande> criteriaQuery = builder.createQuery(Demande.class);
-        Root<Demande> demandeRoot = criteriaQuery.from(Demande.class);
-        criteriaQuery.select(demandeRoot)
-                .where(builder.equal(demandeRoot.get("label"), label));
+        Session session = null;
+        List<Demande> demandes = null;
+        try {
+            session = sessionFactory.openSession();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Demande> criteriaQuery = builder.createQuery(Demande.class);
+            Root<Demande> demandeRoot = criteriaQuery.from(Demande.class);
+            StatusDemande statusDemande = StatusDemande.valueOf(label);
+            criteriaQuery.select(demandeRoot)
+                    .where(builder.equal(demandeRoot.get("status"), statusDemande));
 
-        return sessionFactory.getCurrentSession().createQuery(criteriaQuery).getResultList();
+            demandes = session.createQuery(criteriaQuery).getResultList();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        return demandes;
     }
+
+    public List<Demande> searchDemandesByDate(LocalDate label) {
+        Session session = null;
+        List<Demande> demandes = null;
+        try {
+            session = sessionFactory.openSession();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Demande> criteriaQuery = builder.createQuery(Demande.class);
+            Root<Demande> demandeRoot = criteriaQuery.from(Demande.class);
+
+            LocalDate date = label;
+            criteriaQuery.select(demandeRoot)
+                    .where(builder.equal(
+                            builder.function("DATE", LocalDate.class, demandeRoot.get("date")),
+                            date
+                    ));
+            demandes = session.createQuery(criteriaQuery).getResultList();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        return demandes;
+    }
+
 
 
 

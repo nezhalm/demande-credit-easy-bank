@@ -9,6 +9,7 @@ import Dao.DemandeDao;
 import Entities.*;
 import Enum.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -53,8 +54,14 @@ public class DemandeService {
         return demandeList;
     }
 
-    public List<Demande> searchDemandesByLabel(String label) {
-        List<Demande> demandeList = demandeImp.searchDemandesByLabel(label);
+    public List<Demande> searchDemandesByLabel(StatusDemande label) {
+        String statusString = label.toString();
+        List<Demande> demandeList = demandeImp.searchDemandesByLabel(statusString);
+        return demandeList;
+    }
+
+    public List<Demande> searchDemandesByDate(LocalDate label) {
+        List<Demande> demandeList = demandeImp.searchDemandesByDate(label);
         return demandeList;
     }
 
