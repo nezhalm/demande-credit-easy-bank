@@ -105,6 +105,7 @@ public class AllClientsServlet extends HttpServlet {
         }
     }
 
+
     private void searchClientAPI(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String code = request.getParameter("code");
         Optional<Client> client = clientService.chercher(code);
@@ -129,6 +130,7 @@ public class AllClientsServlet extends HttpServlet {
         response.getWriter().flush();
     }
 
+
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String clientCode = req.getParameter("clientCode");
@@ -137,6 +139,7 @@ public class AllClientsServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/list?successMessage=Le+client+a+ete+supprime+avec+succes.");
         } else {
             resp.sendRedirect(req.getContextPath() + "/list?errorMessage=La+suppression+du+client+a+echoue.");
+
         }
     }
 
@@ -186,6 +189,7 @@ public class AllClientsServlet extends HttpServlet {
 
 
     private void savechangesClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String fullName2 = request.getParameter("fullName");
         String code = request.getParameter("code");
         String username2 = request.getParameter("username");
@@ -200,7 +204,6 @@ public class AllClientsServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/list?errorMessage=error+dans+la+modification+du+client.");
         }
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
