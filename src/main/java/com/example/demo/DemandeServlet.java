@@ -106,6 +106,7 @@ public class DemandeServlet extends HttpServlet {
         int duration = Integer.parseInt(request.getParameter("duration"));
         String remark = request.getParameter("remark");
         LocalDateTime date = LocalDateTime.now();
+        String updated_at = String.valueOf(LocalDateTime.now());
         StatusDemande status = StatusDemande.Pending;
         employe.setMatricule(request.getParameter("employee-code"));
         client.setCode(request.getParameter("client-code"));
@@ -115,9 +116,11 @@ public class DemandeServlet extends HttpServlet {
                 number,
                 null,
                 price,
+
                 duration,
                 remark,
                 date,
+                updated_at,
                 status,
                 employe,
                 agence,

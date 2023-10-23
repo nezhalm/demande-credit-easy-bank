@@ -26,7 +26,6 @@ import java.util.Optional;
 import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
 @WebServlet(urlPatterns = {"/saveClient", "/addClient", "/list", "/deleteClient", "/savechangesClient", "/updateClient", "/listClients", "/searchClient", "/get-client"})
-
 public class AllClientsServlet extends HttpServlet {
     ClientService clientService;
     EmployeService employeService;
