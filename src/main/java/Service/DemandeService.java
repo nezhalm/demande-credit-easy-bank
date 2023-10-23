@@ -43,12 +43,9 @@ public class DemandeService {
             double tauxInteretMensuel = 0.12 / 12.0;
             double denominateur = 1 - Math.pow(1 + tauxInteretMensuel, -d.getDuration());
             double mensualite = d.getPrice() * tauxInteretMensuel / denominateur;
-
             d.setMonsualite(mensualite);
-
             result = demandeImp.ajouter(d);
         }
-
         return result;
     }
 
@@ -57,7 +54,6 @@ public class DemandeService {
         demandeList.forEach(demande -> {
             BigDecimal bigDecimal = new BigDecimal(Double.toString(demande.getMonsualite()));
             bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
-
             demande.setMonsualite(bigDecimal.doubleValue());
         });
 
