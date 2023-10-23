@@ -15,10 +15,10 @@ import org.hibernate.cfg.Configuration;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
 public class DemandeImp implements DemandeDao {
@@ -101,8 +101,14 @@ public class DemandeImp implements DemandeDao {
         try (Session session = sessionFactory.openSession()) {
             Optional<Demande> demandeOptional = chercher(number);
             if (demandeOptional.isPresent()) {
+                LocalDateTime now = LocalDateTime.now();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+                String formattedDateTime = now.format(formatter);
+
                 Demande demande = demandeOptional.get();
-                demande.setStatus(status); // Mettez à jour le champ 'status'
+                demande.setStatus(status);
+                demande.setUpdated_at(formattedDateTime);
                 session.beginTransaction();
                 session.merge(demande);
                 session.getTransaction().commit();

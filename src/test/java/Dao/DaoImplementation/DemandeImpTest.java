@@ -20,6 +20,7 @@ public class DemandeImpTest {
 
     @BeforeAll
     public static void setUp() {
+
         demandeImp = new DemandeImp();
     }
 
@@ -42,6 +43,7 @@ public class DemandeImpTest {
                 20,
                 "Remarque testing",
                 LocalDateTime.now(),
+                null,
                 StatusDemande.Pending,
                 employe,
                 agence,
@@ -49,7 +51,6 @@ public class DemandeImpTest {
         );
 
         Optional<Demande> newDemande = demandeImp.ajouter(demande);
-
         assertTrue(newDemande.isPresent());
     }
 }

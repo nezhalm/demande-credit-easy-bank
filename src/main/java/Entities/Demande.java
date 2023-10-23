@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "demande")
-@ToString
+// @ToString
 public class Demande {
     @Id
     private String number;
@@ -26,6 +26,8 @@ public class Demande {
     private String remarque;
 
     private LocalDateTime date;
+
+    private String updated_at;
 
     @Enumerated(EnumType.STRING)
     private StatusDemande status;

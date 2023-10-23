@@ -28,7 +28,7 @@ import java.util.Optional;
 
 import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
-@WebServlet(urlPatterns = {"/updateStatus","/displayAllDemandes","/searchByStatus","/searchByDate"})
+@WebServlet(urlPatterns = {"/displayFormDemande","/updateStatus","/displayAllDemandes","/searchByStatus","/searchByDate"})
 
 public class DemandeServlet extends HttpServlet {
     ClientService clientService;
@@ -107,6 +107,7 @@ public class DemandeServlet extends HttpServlet {
         int duration = Integer.parseInt(request.getParameter("duration"));
         String remark = request.getParameter("remake");
         LocalDateTime date = LocalDateTime.now();
+        String updated_at = String.valueOf(LocalDateTime.now());
         StatusDemande status = StatusDemande.Pending;
         employe.setMatricule(request.getParameter("employee-code"));
         client.setCode(request.getParameter("client-code"));
@@ -116,9 +117,11 @@ public class DemandeServlet extends HttpServlet {
                 number,
                 null,
                 price,
+
                 duration,
                 remark,
                 date,
+                updated_at,
                 status,
                 employe,
                 agence,
@@ -139,7 +142,7 @@ public class DemandeServlet extends HttpServlet {
     }
 
     protected void displayeFormDemande(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("agences", agenceService.getAllAgencies());
+       // request.setAttribute("agences", agenceService.getAllAgencies());
         request.getRequestDispatcher("/JSPs/DemandeAdministration/DemandeForme.jsp").forward(request, response);
     }
 
