@@ -9,11 +9,12 @@ import java.util.*;
 
 public class EmployeService {
     private final EmployeImp employeImp;
+
     public EmployeService(EmployeImp employeImp) {
         this.employeImp = employeImp;
     }
 
-    public  void ajouterEmploye() throws Exception {
+    public void ajouterEmploye() throws Exception {
         Scanner scanner2 = new Scanner(System.in);
         Entities.Employe employe = new Entities.Employe();
 
@@ -71,31 +72,26 @@ public class EmployeService {
     }
 
     public void chercherPourSupprimer() throws Exception {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("enter le matricule");
-            String code = scanner.nextLine();
-            Optional<Entities.Employe> employe = employeImp.chercher(code);
-            if (employe.isPresent()) {
-                Entities.Employe employe1 = employe.get();
-                employeImp.supprimer(employe1);
-                System.out.println("employe supprimer avec success");
-            } else {
-                System.out.println("employe non trouvé pour le le matricule : " + code);
-            }
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("enter le matricule");
+        String code = scanner.nextLine();
+        Optional<Entities.Employe> employe = employeImp.chercher(code);
+        if (employe.isPresent()) {
+            Entities.Employe employe1 = employe.get();
+            employeImp.supprimer(employe1);
+            System.out.println("employe supprimer avec success");
+        } else {
+            System.out.println("employe non trouvé pour le le matricule : " + code);
         }
-
-
-            public Employe chercher(String code) {
-                Optional<Employe> clientTrouve = employeImp.chercher(code);
-                if (clientTrouve.isPresent()) {
-                    return clientTrouve.get();
-                } else {
-                    return null;
-                }
-            }
-
-
-
-
     }
+
+    public Employe chercher(String code) {
+        Optional<Employe> clientTrouve = employeImp.chercher(code);
+        if (clientTrouve.isPresent()) {
+            return clientTrouve.get();
+        } else {
+            return null;
+        }
+    }
+}
 

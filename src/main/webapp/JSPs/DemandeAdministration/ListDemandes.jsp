@@ -5,9 +5,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>Easy Bank</title>
-    <link rel="stylesheet"  href="../../Css/DemandeAdministration/modal.css" />
-
-    <link rel="stylesheet"  href="../../Css/ClientAdministration/DashboardPage.css" />
+    <link rel="stylesheet" href="../../Css/DemandeAdministration/modal.css" />
+    <link rel="stylesheet" href="../../Css/ClientAdministration/DashboardPage.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
 
@@ -22,13 +21,13 @@
                 <img src="../../Images/admin.png">
                 <span class="nav-item">EasyBank</span>
             </a></li>
-            <li><a href="/">
-                <i class="fas fa-menorah"></i>
-                <span class="nav-item">Dashboard</span>
+            <li><a href="/credit-request">
+                <i class="fas fa-database"></i>
+                <span class="nav-item">Credit Request</span>
             </a></li>
-            <li><a href="/displayFormDemande">
+            <li><a href="/displayAllDemandes">
                 <i class="fas fa-comment"></i>
-                <span class="nav-item">Message</span>
+                <span class="nav-item">Request List</span>
             </a></li>
             <li><a href="#">
                 <i class="fas fa-database"></i>
@@ -50,18 +49,52 @@
         </ul>
     </nav>
 
-
     <section class="main">
         <div class="main-top">
             <%-- Affichez le message de succès --%>
             <c:if test="${not empty param.successMessage}">
-                <div class="alert alert-success">${param.successMessage}</div>
+                <div class="alert alert-success">
+                    <p>
+                        ${param.successMessage}
+                    </p>
+                    <button class="close-notification-btn">
+                        <iconify-icon icon="material-symbols:close-rounded"></iconify-icon>
+                    </button>
+                </div>
             </c:if>
 
             <c:if test="${not empty param.errorMessage}">
-                <div class="alert alert-danger">${param.errorMessage}</div>
+                <div class="alert alert-danger">
+                    <p>
+                        ${param.errorMessage}
+                    </p>
+                    <button class="close-notification-btn">
+                        <iconify-icon icon="material-symbols:close-rounded"></iconify-icon>
+                    </button>
+                </div>
             </c:if>
 
+            <c:if test="${not empty message && message[0] == 'success'}">
+                <div class="alert alert-success">
+                    <p>
+                        ${message[1]}
+                    </p>
+                    <button class="close-notification-btn">
+                        <iconify-icon icon="material-symbols:close-rounded"></iconify-icon>
+                    </button>
+                </div>
+            </c:if>
+
+            <c:if test="${not empty message && message[0] == 'error'}">
+                <div class="alert alert-danger">
+                    <p>
+                        ${message[1]}
+                    </p>
+                    <button class="close-notification-btn">
+                        <iconify-icon icon="material-symbols:close-rounded"></iconify-icon>
+                    </button>
+                </div>
+            </c:if>
         </div>
         <section class="attendance">
             <div class="attendance-list">
@@ -101,15 +134,15 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>client</th>
-                        <th>employe</th>
-                        <th>duree</th>
-                        <th>monsualite</th>
-                        <th>status</th>
-                        <th>montant</th>
-                        <th>agence</th>
-                        <th>modifier</th>
-                        <th>voir</th>
+                        <th>Client</th>
+                        <th>Employee</th>
+                        <th>Agency</th>
+                        <th>Credit</th>
+                        <th>Duration</th>
+                        <th>Monthly Payment</th>
+                        <th>Status</th>
+                        <th>Modify</th>
+                        <th>History</th>
                     </tr>
                     </thead>
 
@@ -120,13 +153,13 @@
                             <tr>
                             <c:forEach items="${demandes}" var="demande">
                                 <tr>
-                                    <td>${demande.client.nom}</td>
-                                    <td>${demande.employe.nom}</td>
-                                    <td>${demande.duration} mois</td>
-                                    <td>${demande.monsualite} DH</td>
-                                    <td>${demande.status}</td>
-                                    <td>${demande.duration}</td>
+                                    <td>${demande.client.prenom} ${demande.client.nom}</td>
+                                    <td>${demande.employe.prenom} ${demande.employe.nom}</td>
                                     <td>${demande.agence.nom}</td>
+                                    <td>${demande.price} DH</td>
+                                    <td>${demande.duration} months</td>
+                                    <td class="monthly-payment">${demande.monsualite} DH/month</td>
+                                    <td>${demande.status}</td>
 
                                     <!-- Utilisez "telephone" au lieu de "heureOuverture" -->
                                     <td>
@@ -151,13 +184,13 @@
                             <tr>
                             <c:forEach items="${demandes}" var="demande">
                                 <tr>
-                                    <td>${demande.client.nom}</td>
-                                    <td>${demande.employe.nom}</td>
-                                    <td>${demande.duration} mois</td>
-                                    <td>${demande.monsualite} DH</td>
-                                    <td>${demande.status}</td>
-                                    <td>${demande.duration}</td>
+                                    <td>${demande.client.prenom} ${demande.client.nom}</td>
+                                    <td>${demande.employe.prenom} ${demande.employe.nom}</td>
                                     <td>${demande.agence.nom}</td>
+                                    <td>${demande.price} DH</td>
+                                    <td>${demande.duration} months</td>
+                                    <td class="monthly-payment">${demande.monsualite} DH/month</td>
+                                    <td>${demande.status}</td>
 
                                     <!-- Utilisez "telephone" au lieu de "heureOuverture" -->
                                     <td>
@@ -182,13 +215,13 @@
                         <c:otherwise>
                              <c:forEach items="${demandes}" var="demande">
                                 <tr>
-                                    <td>${demande.client.nom}</td>
-                                    <td>${demande.employe.nom}</td>
-                                    <td>${demande.duration} mois</td>
-                                    <td>${demande.monsualite} DH</td>
-                                    <td>${demande.status}</td>
-                                    <td>${demande.duration}</td>
+                                    <td>${demande.client.prenom} ${demande.client.nom}</td>
+                                    <td>${demande.employe.prenom} ${demande.employe.nom}</td>
                                     <td>${demande.agence.nom}</td>
+                                    <td>${demande.price} DH</td>
+                                    <td>${demande.duration} months</td>
+                                    <td class="monthly-payment">${demande.monsualite} DH/month</td>
+                                    <td>${demande.status}</td>
 
                                     <!-- Utilisez "telephone" au lieu de "heureOuverture" -->
                                     <td>
@@ -227,9 +260,9 @@
             <label>Status :
                 <select id="demande-status" name="status" style="margin-top: 10px; width: 49%; padding: 2px 14px;">
                     <option selected disabled>Select</option>
-                    <option value="Pending">En attente</option>
-                    <option value="Accepted">Accepté</option>
-                    <option value="Rejected">Rejeté</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Accepted">Accpeted</option>
+                    <option value="Rejected">Rejected</option>
 
                 </select>
             </label>
@@ -252,7 +285,6 @@
 
 </body>
 <script>
-
     const updateButton = document.querySelectorAll(".updateDetails");
     const favDialog = document.getElementById("favDialog");
     const outputBox = document.querySelector("output");
@@ -261,6 +293,13 @@
     const demandeStatus = document.querySelector("#demande-status");
     const demandeNumber = document.querySelector("#demande-number");
     const annulerBtn = document.getElementById("annulerBtn");
+    const alert = document.querySelector(".alert");
+
+    document.addEventListener("click", (evt) => {
+        if (evt.target.classList.contains("close-notification-btn")) {
+            alert.style.display = "none";
+        }
+    });
 
     annulerBtn.addEventListener("click", () => {
         favDialog.close();

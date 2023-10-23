@@ -18,22 +18,20 @@
     <nav>
         <ul>
             <li><a href="/" class="logo">
-                <img src="../../../Images/admin.png">
-                <span class="nav-item">Admin</span>
+                <img src="../../Images/admin.png">
+                <span class="nav-item">EasyBank</span>
             </a></li>
-            <li><a href="/list">
-                <i class="fas fa-menorah"></i>
-                <span class="nav-item">Dashboard</span>
-            </a></li>
-
-            <li><a href="/displayFormDemande">
+            <li><a href="/credit-request">
                 <i class="fas fa-database"></i>
                 <span class="nav-item">Credit Request</span>
             </a></li>
             <li><a href="/displayAllDemandes">
-
                 <i class="fas fa-comment"></i>
-                <span class="nav-item">list demandes</span>
+                <span class="nav-item">Request List</span>
+            </a></li>
+            <li><a href="#">
+                <i class="fas fa-database"></i>
+                <span class="nav-item">Report</span>
             </a></li>
             <li><a href="#">
                 <i class="fas fa-chart-bar"></i>
@@ -50,7 +48,6 @@
             </a></li>
         </ul>
     </nav>
-
 
     <section class="main2">
         <div class="main-top">

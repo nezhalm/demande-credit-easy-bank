@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "demande")
-@ToString
 public class Demande {
     @Id
     private String number;
