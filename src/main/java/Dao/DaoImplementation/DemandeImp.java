@@ -1,25 +1,21 @@
 package Dao.DaoImplementation;
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.criteria.*;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
-import ConnexionBaseDonnes.Connexion;
 import Dao.DemandeDao;
 import Entities.*;
 import Enum.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
 public class DemandeImp implements DemandeDao {
     private static SessionFactory sessionFactory;
@@ -63,10 +59,7 @@ public class DemandeImp implements DemandeDao {
             query.select(demandeRoot);
             query.where(builder.equal(demandeRoot.get("number"), var));
             Demande demande = session.createQuery(query).uniqueResult();
-
             return Optional.ofNullable(demande);
-
-
         } catch (Exception e) {
             e.printStackTrace();
             return Optional.empty();
@@ -74,44 +67,24 @@ public class DemandeImp implements DemandeDao {
         }
 
     }
-
-
     @Override
     public List<Demande> afficheList() {
-        List<Demande> demandes = new ArrayList<>();
-        try (Session session = sessionFactory.openSession()){
-            session.beginTransaction();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Demande> criteriaQuery = builder.createQuery(Demande.class);
-            Root<Demande> root = criteriaQuery.from(Demande.class);
-            criteriaQuery.select(root);
-            List<Demande> results = session.createQuery(criteriaQuery).getResultList();
-            demandes.addAll(results);
-            session.getTransaction().commit();
-            return demandes;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Session session = sessionFactory.openSession();
+        List<Demande> demandes = session.createQuery("FROM Demande", Demande.class).list();
+        session.close();
+        return demandes;
     }
 
-
     public Optional<Demande> UpdateStatus(StatusDemande status, String number) {
-
         try (Session session = sessionFactory.openSession()) {
             Optional<Demande> demandeOptional = chercher(number);
             if (demandeOptional.isPresent()) {
-                LocalDateTime now = LocalDateTime.now();
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
-                String formattedDateTime = now.format(formatter);
-
                 Demande demande = demandeOptional.get();
                 demande.setStatus(status);
-                demande.setUpdated_at(formattedDateTime);
                 session.beginTransaction();
                 session.merge(demande);
                 session.getTransaction().commit();
+                insertUpdateHistory(number);
                 return Optional.of(demande);
             } else {
                 return Optional.empty();
@@ -119,6 +92,29 @@ public class DemandeImp implements DemandeDao {
         } catch (Exception e) {
             e.printStackTrace();
             return Optional.empty();
+        }
+    }
+
+    public boolean insertUpdateHistory(String number) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            LocalDateTime now = LocalDateTime.now();
+            UpdateDemandeHistory updateHistory = new UpdateDemandeHistory();
+            updateHistory.setCodeDemande(number);
+            updateHistory.setUpdatedAt(now);
+            session.save(updateHistory);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
         }
     }
 
@@ -142,10 +138,8 @@ public class DemandeImp implements DemandeDao {
                 session.close();
             }
         }
-
         return demandes;
     }
-
     public List<Demande> searchDemandesByDate(LocalDate label) {
         Session session = null;
         List<Demande> demandes = null;
@@ -154,7 +148,6 @@ public class DemandeImp implements DemandeDao {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Demande> criteriaQuery = builder.createQuery(Demande.class);
             Root<Demande> demandeRoot = criteriaQuery.from(Demande.class);
-
             LocalDate date = label;
             criteriaQuery.select(demandeRoot)
                     .where(builder.equal(
@@ -169,7 +162,6 @@ public class DemandeImp implements DemandeDao {
                 session.close();
             }
         }
-
         return demandes;
     }
 

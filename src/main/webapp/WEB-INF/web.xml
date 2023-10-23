@@ -13,7 +13,7 @@
     <!-- Mappage de la servlet -->
     <servlet-mapping>
         <servlet-name>AllClientsServlet</servlet-name>
-        <url-pattern>/allClients</url-pattern> <!-- Définissez le chemin de votre servlet ici -->
+        <url-pattern>/allClients</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -75,6 +75,8 @@ public class DemandeServlet extends HttpServlet {
     private void updateStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String status = request.getParameter("status");
         String number = request.getParameter("number");
+        System.out.println(status);
+        System.out.println(number);
         StatusDemande statusDemande = StatusDemande.valueOf(status);
         request.setAttribute("employes", demandeService.UpdateStatus(statusDemande,number));
         displayAllDemandes(request,response);
@@ -116,11 +118,9 @@ public class DemandeServlet extends HttpServlet {
                 number,
                 null,
                 price,
-
                 duration,
                 remark,
                 date,
-                updated_at,
                 status,
                 employe,
                 agence,

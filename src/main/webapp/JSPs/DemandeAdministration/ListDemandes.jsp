@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../Css/ClientAdministration/DashboardPage.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
     <!-- Font Awesome Cdn Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
@@ -106,7 +107,6 @@
                             <input type="text"
                                    placeholder=" Entrer l'etat"
                                    name="status">
-                            <input type="hidden" name="action" value="/searchByStatus">
 
                             <button>
                                 <i class="fa fa-search"
@@ -119,8 +119,6 @@
                                 <input type="date"
                                        placeholder="Entrer la date"
                                        name="date">
-                                <input type="hidden" name="action" value="/searchByDate">
-
                                 <button>
                                     <i class="fa fa-search"
                                        style="font-size: 18px;">
@@ -239,8 +237,10 @@
 <dialog id="favDialog">
     <form action="/updateStatus" method="post">
         <div style="justify-content: center; display: flex;">
+            <input type="hidden" name="code_demande" value="${demande.number}">
             <label>Status :
                 <select id="demande-status" name="status" style="margin-top: 10px; width: 59%; padding: 2px 14px;">
+
                     <option selected disabled>Select</option>
                     <option value="Pending">Pending</option>
                     <option value="Accepted">Accpeted</option>
