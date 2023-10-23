@@ -9,6 +9,9 @@ import Dao.DemandeDao;
 import Entities.*;
 import Enum.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,7 +34,7 @@ public class DemandeService {
     public Optional<Demande> ajouterDemande(Demande d) {
         Optional<Demande> result = Optional.empty();
         if (
-            employeImp.chercher(d.getNumber()).isPresent() &&
+            employeImp.chercher(d.getEmploye().getMatricule()).isPresent() &&
             agenceImp.chercher(d.getAgence().getCode()).isPresent() &&
             clientImp.chercher(d.getClient().getCode()).isPresent() &&
             d.getPrice() > 0 &&
@@ -51,6 +54,13 @@ public class DemandeService {
 
     public List<Demande> AllDemandes() {
         List<Demande> demandeList = demandeImp.afficheList();
+        demandeList.forEach(demande -> {
+            BigDecimal bigDecimal = new BigDecimal(Double.toString(demande.getMonsualite()));
+            bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
+
+            demande.setMonsualite(bigDecimal.doubleValue());
+        });
+
         return demandeList;
     }
 

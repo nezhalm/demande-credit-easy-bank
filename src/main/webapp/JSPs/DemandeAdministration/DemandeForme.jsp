@@ -8,37 +8,34 @@
     <title>Easy Bank</title>
     <link rel="stylesheet" href="../../Css/DemandeAdministration/FormeDemande.css"/>
     <link rel="stylesheet" href="../../Css/DemandeAdministration/PetiteCard.css"/>
+    <link rel="stylesheet" href="../../Css/ClientAdministration/DashboardPage.css" />
     <link rel="stylesheet" href="../../Css/DemandeAdministration/style.css"/>
     <script src="../../Js/Script.js" defer></script>
     <script src="../../Js/FormeScript.js" defer></script>
-
-    <!-- Font Awesome Cdn Link -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
 </head>
 <body>
 <div class="container">
     <nav>
         <ul>
-
             <li><a href="/" class="logo">
-                <img src="../../../Images/admin.png">
-                <span class="nav-item">Admin</span>
+                <img src="../../Images/admin.png">
+                <span class="nav-item">EasyBank</span>
             </a></li>
-            <li><a href="/list">
-                <i class="fas fa-menorah"></i>
-                <span class="nav-item">Dashboard</span>
-            </a></li>
-            <li><a href="/displayFormDemande">
+            <li><a href="/credit-request">
                 <i class="fas fa-database"></i>
                 <span class="nav-item">Credit Request</span>
             </a></li>
-
-            <li><a href="#">
+            <li><a href="/displayAllDemandes">
                 <i class="fas fa-comment"></i>
-                <span class="nav-item">Message</span>
+                <span class="nav-item">Request List</span>
             </a></li>
             <li><a href="#">
-
+                <i class="fas fa-database"></i>
+                <span class="nav-item">Report</span>
+            </a></li>
+            <li><a href="#">
                 <i class="fas fa-chart-bar"></i>
                 <span class="nav-item">Attendance</span>
             </a></li>
@@ -54,169 +51,142 @@
         </ul>
     </nav>
 
-    <section>
-        <form action="#" class="form">
-            <h1 class="text-center">Registration Form</h1>
-            <!-- Progress bar -->
-            <div class="progressbar">
-                <div class="progress" id="progress"></div>
+    <section class="main main-request">
+        <div class="form-container">
+            <form action="/add" method="post" class="form">
+                <h1 class="text-center">Credit Request</h1>
+                <!-- Progress bar -->
+                <div class="progressbar">
+                    <div class="progress" id="progress"></div>
 
-                <div
-                        class="progress-step progress-step-active"
-                        data-title="sumuler mon credit"
-                ></div>
-                <div class="progress-step" data-title="cordonnes"></div>
-                <div class="progress-step" data-title="info professionnel"></div>
-            </div>
-
-            <!-- Steps -->
-            <div class="form-step form-step-active">
-                <div class="input-group">
-                    <div class="user-input-box">
-                        <label for="matricule">mon projet</label>
-                        <select style="width: 95%; padding: 11px; border-radius: 6px; height: 40px;" name="matricule">
-                            <option value="">proejet1</option>
-                            <option value="">proejet2</option>
-                            <option value="">proejet3</option>
-                            <option value="">proejet4</option>
-                            <option value="">proejet5</option>
-                        </select>
-
-                    </div>
+                    <div
+                            class="progress-step progress-step-active"
+                            data-title="Credit simulation"
+                    ></div>
+                    <div class="progress-step" data-title="Client"></div>
+                    <div class="progress-step" data-title="Employee"></div>
                 </div>
-                <div class="input-group">
-                    <div class="user-input-box">
-                        <label for="matricule">je suis</label>
-                        <select style="width: 95%; padding: 11px; border-radius: 6px; height: 40px;" id="matricule"
-                                name="matricule">
-                            <option value="">proejet1</option>
-                            <option value="">proejet2</option>
-                            <option value="">proejet3</option>
-                            <option value="">proejet4</option>
-                            <option value="">proejet5</option>
-                        </select>
 
-                    </div>
-                </div>
-                <h3 style="margin-bottom: 24px;
-              ">choisir le montant</h3>
-                <div class="range">
-                    <div class="sliderValue">
-                        <span>5000</span>
-                    </div>
-                    <div class="field">
-                        <div class="value left">5000</div>
-                        <input type="range" id="range1" min="5000" max="600000" value="5000" step="1000">
-                        <div class="value right">600000</div>
-                    </div>
-                </div>
-                <h3 style="margin-bottom: 24px;  margin-top: 10px;
-                ">choisir la duree</h3>
-
-                <div class="range">
-                    <div class="sliderValue2">
-                        <span>12</span>
-                    </div>
-                    <div class="field">
-                        <div class="value left">12</div>
-                        <input type="range" id="range2" min="12" max="120" value="12" step="6">
-                        <div class="value right">120</div>
-                    </div>
-                </div>
-                <div class="">
-                    <a style="margin-top: 20px;" href="#" class="btn btn-next width-50 ml-auto">Next</a>
-                </div>
-            </div>
-
-
-            <div class="form-step">
-                <div class="input-group">
-                    <form action="/searchClient" method="get">
-                        <label for="phone">Entrer le code de l'utilisateur</label>
-                        <input style="border-radius: 0.5rem;margin-bottom: 26px; padding: 8px 4px;" type="text"
-                               name="code" id="phone"/>
-                        <div class="btns-group">
-                            <a href="#" class="btn btn-prev">Previous</a>
-                            <button type="submit" class="btn btn-next">Next</button>
+                <!-- Step 1 -->
+                <div class="form-step form-step-active">
+                    <div class="input-group">
+                        <div class="user-input-box">
+                            <label for="agency-code">Agency</label>
+                            <select id="agency-code" class="select-credit-request" name="agency-code">
+                                <option disabled selected>Select</option>
+                                <c:forEach items="${agencies}" var="agency">
+                                    <option value="${agency.code}">${agency.nom}</option>
+                                </c:forEach>
+                            </select>
                         </div>
-                    </form>
+                    </div>
+                    <div class="input-group">
+                        <div class="user-input-box">
+                            <label for="">To be used</label>
+                            <select id="" class="select-credit-request" name="">
+                                <option value="">proejet1</option>
+                                <option value="">proejet2</option>
+                                <option value="">proejet3</option>
+                                <option value="">proejet4</option>
+                                <option value="">proejet5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="range-&-label">
+                        <h3>Choose the credit amount</h3>
+                        <div class="range">
+                            <div class="sliderValue">
+                                <span>5000</span>
+                            </div>
+                            <div class="field">
+                                <div class="value left">5000</div>
+                                <input type="range" id="range1" min="5000" max="600000" value="5000" step="1000" name="price">
+                                <div class="value right">600000</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="range-&-label">
+                        <h3>Choose the duration</h3>
+                        <div class="range">
+                            <div class="sliderValue2">
+                                <span>12</span>
+                            </div>
+                            <div class="field">
+                                <div class="value left">12</div>
+                                <input type="range" id="range2" min="12" max="120" value="12" step="6" name="duration">
+                                <div class="value right">120</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <button type="button" class="btn btn-next width-50 ml-auto">Next</button>
+                    </div>
                 </div>
-            </div>
 
+                <!-- Step 2 -->
+                <div class="form-step">
+                    <div class="input-group">
+                        <label for="client-code">Enter the client's code</label>
+                        <input type="text" name="code" id="client-code"/>
+                        <button type="button" id="search-btn">
+                            <iconify-icon icon="svg-spinners:ring-resize" style="display: none;"></iconify-icon>
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div id="client-info"></div>
+                    <div class="btns-group">
+                        <button type="button" class="btn btn-prev">Previous</button>
+                        <button type="button" class="btn btn-next" disabled>Next</button>
+                    </div>
+                </div>
 
-            <div class="form-step">
-                <div class="input-group">
-                    <label for="dob">Date of Birth</label>
-                    <input type="date" name="dob" id="dob"/>
+                <!-- Step 3 -->
+                <div class="form-step">
+                    <div class="input-group">
+                        <div class="user-input-box">
+                            <label for="employee-code">Employee</label>
+                            <select id="employee-code" class="select-credit-request" name="employee-code">
+                                <option disabled selected>Select</option>
+                                <c:forEach items="${employees}" var="employee">
+                                    <option value="${employee.matricule}">${employee.prenom} ${employee.nom}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="user-input-box">
+                            <label for="request-remark">Remarks</label>
+                            <textarea name="remark" id="request-remark"></textarea>
+                        </div>
+                    </div>
+                    <div class="btns-group">
+                        <button type="button" class="btn btn-prev">Previous</button>
+                        <button class="btn">Submit</button>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label for="ID">National ID</label>
-                    <input type="number" name="ID" id="ID"/>
-                </div>
-                <div class="btns-group">
-                    <a href="#" class="btn btn-prev">Previous</a>
-                    <a href="#" class="btn btn-next">Next</a>
-                </div>
-            </div>
-            <div class="form-step">
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password"/>
-                </div>
-                <div class="input-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input
-                            type="password"
-                            name="confirmPassword"
-                            id="confirmPassword"
-                    />
-                </div>
-                <div class="btns-group">
-                    <a href="#" class="btn btn-prev">Previous</a>
-                    <input type="submit" value="Submit" class="btn"/>
-                </div>
-            </div>
-        </form>
-
-
-    </section>
-    <section>
-        <div style="
-  margin-left: 54px;
-  border-radius: 15px;
-  margin-left: 61px;
-    width: 316px;padding: 2px 25px;
-    background-color: rgb(200, 200, 200);" class="table basic">
+            </form>
+        </div>
+        <div class="table basic">
             <div class="package-name"></div>
             <ul class="features">
-                <li>
-                    <span class="list-name">Vous êtes:</span>
-                    <span class="list-price">fontionnaire</span>
+                <li class="overview-section">
+                    <p>Credit details</p>
                 </li>
                 <li>
-                    <span class="list-name">Montant:</span>
+                    <span class="list-name">Credit amount:</span>
                     <span class="list-price" id="mon"></span>
                 </li>
                 <li>
-                    <span class="list-name">Durée:</span>
+                    <span class="list-name">Duration:</span>
                     <span class="list-price" id="dureet"></span>
                 </li>
                 <li>
-                    <span class="list-name">Mensualité:</span>
+                    <span class="list-name">Monthly payment:</span>
                     <span class="list-price" id="output"></span>
-                </li>
-                <li>
-                    <span class="list-name">Frais de dossier:</span>
-                    <span class="list-price">212355 $</span>
                 </li>
             </ul>
         </div>
-
     </section>
-
 </div>
-
 </body>
-
-
 </html>

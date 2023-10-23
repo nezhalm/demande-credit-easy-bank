@@ -211,6 +211,16 @@ table thead tr{
     transition: 0.5s;
 }
 
+.table.basic {
+    margin: 60px 0 0;
+    padding: 8px 24px;
+    width: 360px;
+    min-width: auto;
+    height: fit-content;
+    border-radius: 10px;
+    background-color: rgb(200, 200, 200);
+}
+
 .alert {
     padding: 12px 32px;
     position: fixed;
