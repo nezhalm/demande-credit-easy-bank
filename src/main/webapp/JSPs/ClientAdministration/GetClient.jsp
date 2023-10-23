@@ -17,25 +17,22 @@
     <nav>
         <ul>
             <li><a href="/" class="logo">
-
-                <img src="../../../Images/admin.png">
-                <span class="nav-item">Admin</span>
+                <img src="../../Images/admin.png">
+                <span class="nav-item">EasyBank</span>
             </a></li>
-            <li><a href="/list">
-                <i class="fas fa-menorah"></i>
-                <span class="nav-item">Dashboard</span>
-            </a></li>
-            <li><a href="/displayFormDemande">
+            <li><a href="/credit-request">
                 <i class="fas fa-database"></i>
                 <span class="nav-item">Credit Request</span>
             </a></li>
-
-            <li><a href="#">
+            <li><a href="/displayAllDemandes">
                 <i class="fas fa-comment"></i>
-                <span class="nav-item">Message</span>
+                <span class="nav-item">Request List</span>
             </a></li>
             <li><a href="#">
-
+                <i class="fas fa-database"></i>
+                <span class="nav-item">Report</span>
+            </a></li>
+            <li><a href="#">
                 <i class="fas fa-chart-bar"></i>
                 <span class="nav-item">Attendance</span>
             </a></li>
@@ -50,7 +47,6 @@
             </a></li>
         </ul>
     </nav>
-
 
     <section class="main">
         <div class="main-top">
@@ -73,10 +69,6 @@
                 <h4>Clients</h4>
                 <p>Progammer</p>
                 <div class="per">
-                    <table>
-
-                    </table>
-                </div>
                 <a style="padding: 6px 20px;
             border-radius: 10px;
             cursor: pointer;
@@ -95,12 +87,6 @@
                 <img style="width: 15%" src="../../Images/equipe.png">
                 <h4>Employes</h4>
                 <p>Ui designer</p>
-                <div class="per">
-                    <table>
-
-
-                    </table>
-                </div>
                 <button>Ajouter Employe</button>
             </div>
 
@@ -172,13 +158,5 @@
         </section>
     </section>
 </div>
-<script>
-    document.getElementById('ajouterClientButton').addEventListener('click', function() {
-        window.location.href = '/new-client'; // Remplacez 'AddClient.html' par le chemin de votre page AddClient
-    });
-</script>
-
-
-
 </body>
 </html>

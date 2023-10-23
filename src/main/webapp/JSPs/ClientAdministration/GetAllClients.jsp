@@ -17,25 +17,22 @@
     <nav>
         <ul>
             <li><a href="/" class="logo">
-
-                <img src="../../../Images/admin.png">
-                <span class="nav-item">Admin</span>
+                <img src="../../Images/admin.png">
+                <span class="nav-item">EasyBank</span>
             </a></li>
-            <li><a href="/list">
-                <i class="fas fa-menorah"></i>
-                <span class="nav-item">Dashboard</span>
-            </a></li>
-            <li><a href="/displayFormDemande">
+            <li><a href="/credit-request">
                 <i class="fas fa-database"></i>
                 <span class="nav-item">Credit Request</span>
             </a></li>
-
-            <li><a href="#">
+            <li><a href="/displayAllDemandes">
                 <i class="fas fa-comment"></i>
-                <span class="nav-item">Message</span>
+                <span class="nav-item">Request List</span>
             </a></li>
             <li><a href="#">
-
+                <i class="fas fa-database"></i>
+                <span class="nav-item">Report</span>
+            </a></li>
+            <li><a href="#">
                 <i class="fas fa-chart-bar"></i>
                 <span class="nav-item">Attendance</span>
             </a></li>
@@ -51,17 +48,30 @@
         </ul>
     </nav>
 
-
     <section class="main">
         <div class="main-top">
             <h1>Dashboard</h1>
             <%-- Affichez le message de succès --%>
             <c:if test="${not empty param.successMessage}">
-                <div class="alert alert-success">${param.successMessage}</div>
+                <div class="alert alert-success">
+                    <p>
+                        ${param.successMessage}
+                    </p>
+                    <button class="close-notification-btn">
+                        <iconify-icon icon="material-symbols:close-rounded"></iconify-icon>
+                    </button>
+                </div>
             </c:if>
 
             <c:if test="${not empty param.errorMessage}">
-                <div class="alert alert-danger">${param.errorMessage}</div>
+                <div class="alert alert-danger">
+                    <p>
+                        ${param.errorMessage}
+                    </p>
+                    <button class="close-notification-btn">
+                        <iconify-icon icon="material-symbols:close-rounded"></iconify-icon>
+                    </button>
+                </div>
             </c:if>
 
 
@@ -173,12 +183,13 @@
     </section>
 </div>
 <script>
-    document.getElementById('ajouterClientButton').addEventListener('click', function() {
-        window.location.href = '/new-client'; // Remplacez 'AddClient.html' par le chemin de votre page AddClient
+    const alert = document.querySelector(".alert");
+
+    document.addEventListener("click", (evt) => {
+        if (evt.target.classList.contains("close-notification-btn")) {
+            alert.style.display = "none";
+        }
     });
 </script>
-
-
-
 </body>
 </html>

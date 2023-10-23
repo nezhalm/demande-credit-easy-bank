@@ -13,6 +13,7 @@ import Service.AgenceService;
 import Service.ClientService;
 import Service.DemandeService;
 import Service.EmployeService;
+import Utils.ExtraMethods;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,8 +29,7 @@ import java.util.Optional;
 
 import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
-@WebServlet(urlPatterns = {"/displayFormDemande","/updateStatus","/displayAllDemandes","/searchByStatus","/searchByDate"})
-
+@WebServlet(urlPatterns = {"/updateStatus", "/displayAllDemandes", "/searchByStatus", "/searchByDate", "/credit-request", "/add"})
 public class DemandeServlet extends HttpServlet {
     ClientService clientService;
     EmployeService employeService;
@@ -61,7 +61,7 @@ public class DemandeServlet extends HttpServlet {
                 case "/add":
                     addDemande(request, response);
                     break;
-                case "/displayFormDemande":
+                case "/credit-request":
                     displayeFormDemande(request, response);
                     break;
                 default:
@@ -81,13 +81,12 @@ public class DemandeServlet extends HttpServlet {
     }
     private void displayAllDemandes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("demandes", demandeService.AllDemandes());
-        System.out.println(demandeService.AllDemandes());
         request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
     }
     private void searchByDate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LocalDate date = LocalDate.parse(request.getParameter("date"));
         request.setAttribute("demandes", demandeService.searchDemandesByDate(date));
-         request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
+        request.getRequestDispatcher("/JSPs/DemandeAdministration/ListDemandes.jsp").forward(request, response);
     }
 
     private void searchByStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -101,17 +100,17 @@ public class DemandeServlet extends HttpServlet {
         Client client = new Client();
         Employe employe = new Employe();
         
-        String number = request.getParameter("number");
+        String number = ExtraMethods.generateUniqueCode(6);
 //        double monthlyPayment = Double.parseDouble(request.getParameter("monthly-payment"));
         int price = Integer.parseInt(request.getParameter("price"));
         int duration = Integer.parseInt(request.getParameter("duration"));
-        String remark = request.getParameter("remake");
+        String remark = request.getParameter("remark");
         LocalDateTime date = LocalDateTime.now();
         String updated_at = String.valueOf(LocalDateTime.now());
         StatusDemande status = StatusDemande.Pending;
         employe.setMatricule(request.getParameter("employee-code"));
         client.setCode(request.getParameter("client-code"));
-        agence.setCode(request.getParameter("agence-code"));
+        agence.setCode(request.getParameter("agency-code"));
 
         Demande demande = new Demande(
                 number,
@@ -142,7 +141,8 @@ public class DemandeServlet extends HttpServlet {
     }
 
     protected void displayeFormDemande(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       // request.setAttribute("agences", agenceService.getAllAgencies());
+        request.setAttribute("employees", employeService.AllEmployes());
+        request.setAttribute("agencies", agenceService.getAllAgencies());
         request.getRequestDispatcher("/JSPs/DemandeAdministration/DemandeForme.jsp").forward(request, response);
     }
 

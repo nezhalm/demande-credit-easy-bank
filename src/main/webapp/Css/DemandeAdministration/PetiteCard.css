@@ -61,6 +61,7 @@
     list-style: none;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid rgb(128, 128, 128);
 }
 .features li .list-name{
     font-size: 17px;
@@ -96,10 +97,7 @@
 .table .btn button:hover{
     border-radius: 5px;
 }
-.basic .features li::selection{
-    background: #ffd861;
-}
-.basic ::selection,
+
 .basic .price-area,
 .basic .inner-area{
     background: #ffd861;
@@ -113,7 +111,7 @@
     background: #ffd861;
     color: #fff;
 }
-.premium ::selection,
+
 .premium .price-area,
 .premium .inner-area,
 .premium .btn button{
@@ -122,7 +120,7 @@
 .premium .btn button:hover{
     background: #833af8;
 }
-.ultimate ::selection,
+
 .ultimate .price-area,
 .ultimate .inner-area{
     background: #43ef8b;
@@ -146,7 +144,7 @@
     background: #baf8d4;
 }
 .basic .package-name::before{
-    content: "recapitulatif";
+    content: "Overview";
 }
 
 .ultimate .package-name::before{
@@ -164,9 +162,7 @@
         width: 100%;
     }
 }
-::selection{
-    color: #fff;
-}
+
 .table .ribbon{
     width: 150px;
     height: 150px;

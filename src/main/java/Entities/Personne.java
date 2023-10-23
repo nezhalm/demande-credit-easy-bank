@@ -6,11 +6,10 @@ import jakarta.persistence.MappedSuperclass;
 import java.time.LocalDate;
 @MappedSuperclass
 public abstract class Personne {
-    @Column(name = "first_name")
-    protected String nom;
     @Column(name = "last_name")
+    protected String nom;
+    @Column(name = "first_name")
     protected String prenom;
-
     @Column(name = "birth_date")
     protected LocalDate dateNaissance;
     @Column(name = "phone_number")

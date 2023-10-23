@@ -1,12 +1,11 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>modifier un client</title>
-    <link rel="stylesheet"  href="../../Css/ClientAdministration/AddPage.css" />
-    <link rel="stylesheet"  href="../../Css/ClientAdministration/DashboardPage.css" />
+    <link rel="stylesheet" href="../../Css/ClientAdministration/AddPage.css"/>
+    <link rel="stylesheet" href="../../Css/ClientAdministration/DashboardPage.css"/>
 
     <!-- Font Awesome Cdn Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
@@ -15,26 +14,23 @@
 <div class="container">
     <nav>
         <ul>
-
             <li><a href="/" class="logo">
-                <img src="../../../Images/admin.png">
-                <span class="nav-item">Admin</span>
+                <img src="../../Images/admin.png">
+                <span class="nav-item">EasyBank</span>
             </a></li>
-            <li><a href="/list">
-                <i class="fas fa-menorah"></i>
-                <span class="nav-item">Dashboard</span>
-            </a></li>
-            <li><a href="/displayFormDemande">
+            <li><a href="/credit-request">
                 <i class="fas fa-database"></i>
                 <span class="nav-item">Credit Request</span>
             </a></li>
-
-            <li><a href="#">
+            <li><a href="/displayAllDemandes">
                 <i class="fas fa-comment"></i>
-                <span class="nav-item">Message</span>
+                <span class="nav-item">Request List</span>
             </a></li>
             <li><a href="#">
-
+                <i class="fas fa-database"></i>
+                <span class="nav-item">Report</span>
+            </a></li>
+            <li><a href="#">
                 <i class="fas fa-chart-bar"></i>
                 <span class="nav-item">Attendance</span>
             </a></li>
@@ -49,7 +45,6 @@
             </a></li>
         </ul>
     </nav>
-
 
     <section class="main">
         <div class="main-top">
@@ -93,7 +88,6 @@
                                placeholder="Enter Email"
                                value="${clientTrouvee.adresse}"
                         />
-
                     </div>
                     <div class="user-input-box">
                         <label for="phoneNumber">telephone </label>
@@ -102,9 +96,7 @@
                                name="phoneNumber"
                                placeholder="Enter Phone Number"
                                value="${clientTrouvee.telephone}"
-
                         />
-
                     </div>
                     <div class="user-input-box">
                         <label for="dateNaissance">Date de naissance</label>
@@ -113,35 +105,26 @@
                                name="dateNaissance"
                                placeholder="Sélectionnez votre date de naissance"
                                value="${clientTrouvee.dateNaissance}"
-
                         />
                         <input type="hidden" name="code"
                                value="${clientTrouvee.code}"/>
-
                     </div>
-
                     <div class="user-input-box">
                         <label for="matricule">Selectionner la matricule d'employe</label>
-                        <select style="width: 95%; padding: 11px; border-radius: 6px; height: 40px;" id="matricule" name="matricule">
+                        <select style="width: 95%; padding: 11px; border-radius: 6px; height: 40px;" id="matricule"
+                                name="matricule">
                             <c:forEach var="employe" items="${employes}">
                                 <option value="${employe.matricule}">${employe.matricule}</option>
                             </c:forEach>
                             <!-- Ajoutez d'autres options au besoin -->
                         </select>
-
                     </div>
-
-
                 </div>
-
                 <div class="form-submit-btn">
                     <input type="submit" value="Register">
                 </div>
             </form>
         </div>
-
-
-
     </section>
 </div>
 
