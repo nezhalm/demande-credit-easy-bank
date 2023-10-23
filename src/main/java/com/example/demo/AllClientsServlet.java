@@ -95,7 +95,6 @@ public class AllClientsServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/list?errorMessage=Le+client+introuvable.");
         }
     }
-
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String clientCode = req.getParameter("clientCode");
@@ -105,9 +104,7 @@ public class AllClientsServlet extends HttpServlet {
         } else {
             resp.sendRedirect(req.getContextPath() + "/list?errorMessage=La+suppression+du+client+a+echoue.");
         }    }
-
-
-        protected void addClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void addClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             // Récupération des données du formulaire
             String fullName = request.getParameter("fullName");
             String username = request.getParameter("username");
@@ -149,9 +146,6 @@ public class AllClientsServlet extends HttpServlet {
               //  request.getRequestDispatcher("/JSPs/erreur.jsp").forward(request, response);
             }
             }
-
-
-
     protected void savechangesClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String fullName2 = request.getParameter("fullName");
         String code = request.getParameter("code");
@@ -167,7 +161,6 @@ public class AllClientsServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/list?errorMessage=error+dans+la+modification+du+client.");
         }
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             doGet(request, response);

@@ -20,7 +20,6 @@ public class DemandeImpTest {
 
     @BeforeAll
     public static void setUp() {
-
         demandeImp = new DemandeImp();
     }
 
