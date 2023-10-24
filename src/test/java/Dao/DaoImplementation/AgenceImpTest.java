@@ -18,7 +18,6 @@ public class AgenceImpTest {
     @Test
     public void getAllAgencies() {
         List<Agence> agences = agenceImp.afficheList();
-
         assertNotNull(agences);
     }
 }

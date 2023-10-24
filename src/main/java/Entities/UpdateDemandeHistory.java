@@ -2,7 +2,7 @@ package Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,9 +12,11 @@ import java.sql.Timestamp;
 @Table(name = "update_demande_history")
 public class UpdateDemandeHistory {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "code_demande")
     private String codeDemande;
     @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    private LocalDateTime updatedAt;
 }
+

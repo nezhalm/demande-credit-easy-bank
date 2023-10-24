@@ -14,5 +14,6 @@
         <mapping class="Entities.Demande" />
         <mapping class="Entities.Employe" />
         <mapping class="Entities.Agence" />
+        <mapping class="Entities.UpdateDemandeHistory" />
     </session-factory>
 </hibernate-configuration>
