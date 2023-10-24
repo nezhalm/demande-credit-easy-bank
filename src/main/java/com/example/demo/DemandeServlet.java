@@ -27,8 +27,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
-
 @WebServlet(urlPatterns = {"/updateStatus", "/displayAllDemandes", "/searchByStatus", "/searchByDate", "/credit-request", "/add"})
 public class DemandeServlet extends HttpServlet {
     ClientService clientService;
@@ -106,7 +104,6 @@ public class DemandeServlet extends HttpServlet {
         int duration = Integer.parseInt(request.getParameter("duration"));
         String remark = request.getParameter("remark");
         LocalDateTime date = LocalDateTime.now();
-        String updated_at = String.valueOf(LocalDateTime.now());
         StatusDemande status = StatusDemande.Pending;
         employe.setMatricule(request.getParameter("employee-code"));
         client.setCode(request.getParameter("client-code"));
@@ -116,11 +113,9 @@ public class DemandeServlet extends HttpServlet {
                 number,
                 null,
                 price,
-
                 duration,
                 remark,
                 date,
-                updated_at,
                 status,
                 employe,
                 agence,

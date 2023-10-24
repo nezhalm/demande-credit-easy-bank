@@ -11,13 +11,10 @@ import Enum.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
 public class DemandeService {
     static final EmployeImp employeImp = new EmployeImp();

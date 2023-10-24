@@ -19,7 +19,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
 
 public class DemandeImp implements DemandeDao {
     private static SessionFactory sessionFactory;
@@ -97,7 +96,6 @@ public class DemandeImp implements DemandeDao {
 
 
     public Optional<Demande> UpdateStatus(StatusDemande status, String number) {
-
         try (Session session = sessionFactory.openSession()) {
             Optional<Demande> demandeOptional = chercher(number);
             if (demandeOptional.isPresent()) {
@@ -108,7 +106,7 @@ public class DemandeImp implements DemandeDao {
 
                 Demande demande = demandeOptional.get();
                 demande.setStatus(status);
-                demande.setUpdated_at(formattedDateTime);
+//                demande.setUpdated_at(formattedDateTime);
                 session.beginTransaction();
                 session.merge(demande);
                 session.getTransaction().commit();

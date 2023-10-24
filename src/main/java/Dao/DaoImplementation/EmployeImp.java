@@ -96,16 +96,4 @@ public class EmployeImp implements EmployeDao {
             throw new RuntimeException("Erreur lors de la récupération des employés.", e);
         }
     }
-
-
-    public static String genererCodeUnique(int longueur) {
-        Random random = new Random();
-        StringBuilder code = new StringBuilder();
-        for (int i = 0; i < longueur; i++) {
-            int chiffre = random.nextInt(10);
-            code.append(chiffre);
-        }
-        return code.toString();
-    }
-
 }
