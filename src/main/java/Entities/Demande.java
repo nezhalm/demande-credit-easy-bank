@@ -26,8 +26,6 @@ public class Demande {
 
     private LocalDateTime date;
 
-
-
     @Enumerated(EnumType.STRING)
     private StatusDemande status;
 

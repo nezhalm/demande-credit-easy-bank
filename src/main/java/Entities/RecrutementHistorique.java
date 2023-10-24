@@ -1,5 +1,7 @@
 package Entities;
+
 import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,25 +11,25 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-    @AllArgsConstructor
-    @Setter
-    @Getter
-    public class RecrutementHistorique {
+@AllArgsConstructor
+@Setter
+@Getter
+public class RecrutementHistorique {
 
-        private Employe employe;
-        private Agence agence;
-        private LocalDateTime recrute;
-        private LocalDateTime fini;
+    private Employe employe;
+    private Agence agence;
+    private LocalDateTime recrute;
+    private LocalDateTime fini;
 
     @Override
-        public String toString() {
-            return "IRecruitmentHistoryDAO{" +
-                    "employee=" + employe +
-                    ", agency=" + agence +
-                    ", recruitedAt=" + recrute +
-                    ", finishedAt=" + fini +
-                    '}';
-        }
+    public String toString() {
+        return "IRecruitmentHistoryDAO{" +
+                "employee=" + employe +
+                ", agency=" + agence +
+                ", recruitedAt=" + recrute +
+                ", finishedAt=" + fini +
+                '}';
     }
+}
 
 

@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static Dao.DaoImplementation.EmployeImp.genererCodeUnique;
+import static Utils.ExtraMethods.generateUniqueCode;
 
 @WebServlet(urlPatterns = {"/saveClient", "/addClient", "/list", "/deleteClient", "/savechangesClient", "/updateClient", "/listClients", "/searchClient", "/get-client"})
 public class AllClientsServlet extends HttpServlet {
@@ -161,7 +161,7 @@ public class AllClientsServlet extends HttpServlet {
         String matricule = request.getParameter("matricule");
         // Création d'un nouvel objet Client
         Client newClient = new Client();
-        newClient.setCode(genererCodeUnique(3));
+        newClient.setCode(generateUniqueCode(3));
         newClient.setNom(fullName);
         newClient.setPrenom(username);
         newClient.setDateNaissance(dateNaissance);
