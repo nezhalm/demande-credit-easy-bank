@@ -19,5 +19,9 @@ public class AgenceImpTest {
     public void getAllAgencies() {
         List<Agence> agences = agenceImp.afficheList();
         assertNotNull(agences);
+
+        for (Agence a : agences) {
+            System.out.println();
+        }
     }
 }

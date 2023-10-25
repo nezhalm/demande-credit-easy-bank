@@ -169,15 +169,22 @@
                                         <div class="update-history hidden">
                                             <ul>
                                                 <li>Creation date</li>
-                                                <li>23-10-2023 14:33</li>
+                                                <li>
+                                                    <fmt:parseDate value="${demande.date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDate" type="both" />
+                                                    <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${parsedDate}" />
+                                                </li>
                                             </ul>
-                                            <ul>
-                                                <li>Update history</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                            </ul>
+                                            <c:if test="${not empty demande.updateHistory}">
+                                                <ul>
+                                                    <li>Update history</li>
+                                                    <c:forEach items="${demande.updateHistory}" var="updateDate" varStatus="status">
+                                                        <li><span>${status.index + 1}#</span>
+                                                            <fmt:parseDate value="${updateDate.updatedAt}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedUpdateDate" type="both" />
+                                                            <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${parsedUpdateDate}" />
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:if>
                                         </div>
                                     </td>
                                 </tr>
@@ -215,15 +222,22 @@
                                         <div class="update-history hidden">
                                             <ul>
                                                 <li>Creation date</li>
-                                                <li>23-10-2023 14:33</li>
+                                                <li>
+                                                    <fmt:parseDate value="${demande.date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDate" type="both" />
+                                                    <fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${parsedDate}" />
+                                                </li>
                                             </ul>
-                                            <ul>
-                                                <li>Update history</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                            </ul>
+                                            <c:if test="${not empty demande.updateHistory}">
+                                                <ul>
+                                                    <li>Update history</li>
+                                                    <c:forEach items="${demande.updateHistory}" var="updateDate" varStatus="status">
+                                                        <li><span>${status.index + 1}#</span>
+                                                            <fmt:parseDate value="${updateDate.updatedAt}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedUpdateDate" type="both" />
+                                                            <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${parsedUpdateDate}" />
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:if>
                                         </div>
                                     </td>
                                 </tr>
@@ -261,15 +275,22 @@
                                         <div class="update-history hidden">
                                             <ul>
                                                 <li>Creation date</li>
-                                                <li>23-10-2023 14:33</li>
+                                                <li>
+                                                    <fmt:parseDate value="${demande.date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDate" type="both" />
+                                                    <fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${parsedDate}" />
+                                                </li>
                                             </ul>
-                                            <ul>
-                                                <li>Update history</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                                <li><span>1#</span> 23-10-2023 14:33</li>
-                                            </ul>
+                                            <c:if test="${not empty demande.updateHistory}">
+                                                <ul>
+                                                    <li>Update history</li>
+                                                    <c:forEach items="${demande.updateHistory}" var="updateDate" varStatus="status">
+                                                        <li><span>${status.index + 1}#</span>
+                                                            <fmt:parseDate value="${updateDate.updatedAt}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedUpdateDate" type="both" />
+                                                            <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${parsedUpdateDate}" />
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:if>
                                         </div>
                                     </td>
                                 </tr>

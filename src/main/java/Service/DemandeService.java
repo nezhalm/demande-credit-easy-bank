@@ -60,11 +60,21 @@ public class DemandeService {
     public List<Demande> searchDemandesByLabel(StatusDemande label) {
         String statusString = label.toString();
         List<Demande> demandeList = demandeImp.searchDemandesByLabel(statusString);
+        demandeList.forEach(demande -> {
+            BigDecimal bigDecimal = new BigDecimal(Double.toString(demande.getMonsualite()));
+            bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
+            demande.setMonsualite(bigDecimal.doubleValue());
+        });
         return demandeList;
     }
 
     public List<Demande> searchDemandesByDate(LocalDate label) {
         List<Demande> demandeList = demandeImp.searchDemandesByDate(label);
+        demandeList.forEach(demande -> {
+            BigDecimal bigDecimal = new BigDecimal(Double.toString(demande.getMonsualite()));
+            bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
+            demande.setMonsualite(bigDecimal.doubleValue());
+        });
         return demandeList;
     }
 
