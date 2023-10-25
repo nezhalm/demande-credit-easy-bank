@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -40,6 +42,10 @@ public class Demande {
     @ManyToOne
     @JoinColumn(name = "codeclient")
     private Client client;
+
+    @OneToMany(mappedBy = "demande", cascade = CascadeType.ALL)
+    private List<UpdateDemandeHistory> updateHistory;
+
     public Demande(Employe employe, Agence agence, Client client, Integer credit, Integer duree, String remarque, LocalDateTime dateEtHeureCreation, String s, StatusDemande statusDemande, Double monsualite) {
          setEmploye(employe);
          setAgence(agence);

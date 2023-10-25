@@ -56,6 +56,7 @@ public class DemandeServlet extends HttpServlet {
                     break;
                 case "/searchByStatus":
                     searchByStatus(request, response);
+                    break;
                 case "/add":
                     addDemande(request, response);
                     break;
@@ -73,8 +74,6 @@ public class DemandeServlet extends HttpServlet {
     private void updateStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String status = request.getParameter("status");
         String number = request.getParameter("number");
-        System.out.println(status);
-        System.out.println(number);
         StatusDemande statusDemande = StatusDemande.valueOf(status);
         request.setAttribute("employes", demandeService.UpdateStatus(statusDemande,number));
         displayAllDemandes(request,response);
@@ -121,7 +120,8 @@ public class DemandeServlet extends HttpServlet {
                 status,
                 employe,
                 agence,
-                client
+                client,
+                null
         );
 
         Optional<Demande> createdDemande = demandeService.ajouterDemande(demande);

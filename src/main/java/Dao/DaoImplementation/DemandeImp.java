@@ -4,13 +4,10 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.criteria.*;
-import org.hibernate.HibernateException;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import Dao.DemandeDao;
 import Entities.*;
 import Enum.*;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -71,20 +68,23 @@ public class DemandeImp implements DemandeDao {
     public List<Demande> afficheList() {
         Session session = sessionFactory.openSession();
         List<Demande> demandes = session.createQuery("FROM Demande", Demande.class).list();
+        for (Demande demande : demandes) {
+            Hibernate.initialize(demande.getUpdateHistory());
+        }
         session.close();
         return demandes;
     }
 
     public Optional<Demande> UpdateStatus(StatusDemande status, String number) {
         try (Session session = sessionFactory.openSession()) {
-            Optional<Demande> demandeOptional = chercher(number);
+            Optional<Demande> demandeOptional = this.chercher(number);
             if (demandeOptional.isPresent()) {
                 Demande demande = demandeOptional.get();
                 demande.setStatus(status);
                 session.beginTransaction();
                 session.merge(demande);
                 session.getTransaction().commit();
-                insertUpdateHistory(number);
+                this.insertUpdateHistory(number);
                 return Optional.of(demande);
             } else {
                 return Optional.empty();
@@ -101,9 +101,13 @@ public class DemandeImp implements DemandeDao {
         try {
             transaction = session.beginTransaction();
             LocalDateTime now = LocalDateTime.now();
+            Demande demande = new Demande();
             UpdateDemandeHistory updateHistory = new UpdateDemandeHistory();
-            updateHistory.setCodeDemande(number);
+
+            demande.setNumber(number);
+            updateHistory.setDemande(demande);
             updateHistory.setUpdatedAt(now);
+
             session.save(updateHistory);
             transaction.commit();
             return true;
@@ -131,6 +135,9 @@ public class DemandeImp implements DemandeDao {
                     .where(builder.equal(demandeRoot.get("status"), statusDemande));
 
             demandes = session.createQuery(criteriaQuery).getResultList();
+            for (Demande demande : demandes) {
+                Hibernate.initialize(demande.getUpdateHistory());
+            }
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
@@ -155,6 +162,9 @@ public class DemandeImp implements DemandeDao {
                             date
                     ));
             demandes = session.createQuery(criteriaQuery).getResultList();
+            for (Demande demande : demandes) {
+                Hibernate.initialize(demande.getUpdateHistory());
+            }
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
@@ -164,9 +174,4 @@ public class DemandeImp implements DemandeDao {
         }
         return demandes;
     }
-
-
-
-
-
 }

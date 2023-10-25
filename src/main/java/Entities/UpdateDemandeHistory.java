@@ -14,9 +14,10 @@ public class UpdateDemandeHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "code_demande")
-    private String codeDemande;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    @ManyToOne
+    @JoinColumn(name = "code_demande")
+    private Demande demande;
 }
 
